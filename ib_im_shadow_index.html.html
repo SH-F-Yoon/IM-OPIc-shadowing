@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>오픽승혜쌤 쉐도잉 · 입문반</title>
+<style>
+  :root{
+    --navy:#1b3a64; --navy2:#27508a; --red:#c0392b; --bg:#f4f6f9;
+    --card:#ffffff; --line:#e3e8ef; --ink:#1d2733; --sub:#6b7785;
+    --hi:#fdeaa8; --hiInk:#7a5b00; --play:#1b8a5a; --kobg:#eef3fb;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",
+      "Noto Sans KR",Roboto,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.55;
+    padding-bottom:140px;
+  }
+  header{
+    position:sticky; top:0; z-index:30;
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    color:#fff; padding:12px 16px 10px;
+    box-shadow:0 2px 10px rgba(0,0,0,.12);
+  }
+  header .ch{font-size:11px; opacity:.85; letter-spacing:.5px;}
+  header h1{font-size:17px; margin:2px 0 0; font-weight:800;}
+  header .sub{font-size:12px; opacity:.85; margin-top:3px;}
+  .chtabs{display:flex; flex-wrap:wrap; gap:7px; overflow-x:visible; padding:9px 12px;
+    background:#fff; border-bottom:1px solid var(--line);
+    position:sticky; top:60px; z-index:22; -webkit-overflow-scrolling:touch;}
+  .chtabs::-webkit-scrollbar{display:none;}
+  .chtab{flex:0 0 auto; border:1.5px solid var(--line); background:#fff;
+    color:var(--sub); border-radius:20px; padding:7px 14px; font-size:13px;
+    font-weight:800; white-space:nowrap; cursor:pointer;}
+  .chtab small{font-size:10px; display:block; opacity:.7; font-weight:700;}
+  .chtab.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+  .settabs{display:flex; gap:6px; overflow-x:auto; padding:8px 12px;
+    background:var(--bg); border-bottom:1px solid var(--line);
+    position:sticky; top:108px; z-index:21; -webkit-overflow-scrolling:touch;}
+  .settabs::-webkit-scrollbar{display:none;}
+  .settab{flex:0 0 auto; border:1.5px solid var(--line); background:#fff;
+    color:var(--sub); border-radius:16px; padding:6px 11px; font-size:12px;
+    font-weight:700; white-space:nowrap; cursor:pointer;}
+  .settab .ty{font-size:9.5px; display:block; opacity:.75; font-weight:700; color:var(--red);}
+  .settab.active{background:#fff; color:var(--navy); border-color:var(--navy);
+    box-shadow:0 0 0 1.5px var(--navy) inset;}
+  main{padding:14px 12px 0; max-width:680px; margin:0 auto;}
+  .qhead{background:#fff; border:1px solid var(--line); border-left:5px solid var(--red);
+    border-radius:12px; padding:13px 14px; margin-bottom:12px;}
+  .qhead .badge{display:inline-block; font-size:11px; font-weight:800; color:#fff;
+    background:var(--red); padding:2px 9px; border-radius:6px; margin-bottom:7px;}
+  .qhead h2{font-size:16px; margin:0 0 6px; color:var(--navy); font-weight:800;}
+  .qhead .qen{font-size:13px; color:var(--sub); font-style:italic; line-height:1.5;}
+  .blocklabel{display:inline-block; background:var(--navy); color:#fff;
+    font-size:12px; font-weight:800; padding:4px 12px; border-radius:6px;
+    margin:14px 0 8px;}
+  .blocklabel.rp{background:var(--red);}
+  .sent{display:flex; align-items:flex-start; gap:10px; background:var(--card);
+    border:1px solid var(--line); border-radius:12px; padding:11px 12px; margin-bottom:9px;
+    transition:border-color .15s, box-shadow .15s, background .15s;}
+  .sent.active{border-color:var(--navy); box-shadow:0 0 0 2px rgba(27,58,100,.15);
+    background:#fbfdff;}
+  .sent .play{flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+    border:none; background:var(--navy); color:#fff; font-size:16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; margin-top:1px;}
+  .sent.active .play{background:var(--play);}
+  .sent .txt{flex:1; padding-top:2px; cursor:pointer;}
+  .sent .en{font-size:15.5px; line-height:1.6;}
+  .sent .ih{display:inline-block; background:var(--navy); color:#fff; font-size:10px;
+    font-weight:800; padding:1px 5px; border-radius:4px; margin-right:5px; vertical-align:1px;}
+  mark{background:var(--hi); color:var(--hiInk); padding:0 2px; border-radius:3px; font-weight:700;}
+  .kohint{font-size:11.5px; color:var(--sub); margin-top:5px; user-select:none;}
+  .ko{display:none; margin-top:6px; font-size:14px; color:var(--navy);
+    background:var(--kobg); border-radius:8px; padding:8px 10px; line-height:1.55;}
+  .sent.show-ko .ko{display:block;}
+  .num{flex:0 0 auto; font-size:11px; color:var(--sub); width:18px; text-align:right;
+    margin-top:11px; font-weight:700;}
+  .tip{font-size:12px; color:var(--sub); text-align:center; margin:18px 8px 6px; line-height:1.6;}
+  .bar{position:fixed; left:0; right:0; bottom:0; z-index:40;
+    background:#fff; border-top:1px solid var(--line);
+    box-shadow:0 -3px 14px rgba(0,0,0,.08); padding:9px 12px 12px;}
+  .bar .inner{max-width:680px; margin:0 auto;}
+  .bar .btns{display:flex; gap:8px; margin-bottom:8px;}
+  .bar button.main{flex:1; border:none; border-radius:10px; padding:12px;
+    font-size:14px; font-weight:800; cursor:pointer;}
+  .bar .playall{background:var(--play); color:#fff;}
+  .bar .stop{background:#eef1f5; color:var(--ink); flex:0 0 90px;}
+  .bar .opts{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    font-size:12px; color:var(--sub);}
+  .bar .opts label{display:flex; align-items:center; gap:5px;}
+  .seg{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .seg button{border:none; background:#fff; padding:5px 8px; font-size:12px; font-weight:700;
+    color:var(--sub); cursor:pointer;}
+  .seg button.on{background:var(--navy); color:#fff;}
+  @media(min-width:500px){ header h1{font-size:19px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="ch">오픽승혜쌤 쉐도잉 · 입문반 ☕</div>
+  <h1 id="hTitle">입문반 (IM2 / IM3)</h1>
+  <div class="sub">문장별 듣고 따라 말하기 (Shadowing)</div>
+</header>
+
+<div class="chtabs" id="chtabs"></div>
+<div class="settabs" id="settabs"></div>
+<main id="main"></main>
+
+<div class="bar">
+  <div class="inner">
+    <div class="btns">
+      <button class="main playall" id="playAll">▶ 이 항목 전체 따라읽기</button>
+      <button class="main stop" id="stopBtn">■ 정지</button>
+    </div>
+    <div class="opts">
+      <label>속도
+        <span class="seg" id="rateSeg">
+          <button data-r="0.6">0.6x</button>
+          <button data-r="0.7" class="on">0.7x</button>
+          <button data-r="0.85">0.85x</button>
+          <button data-r="1">1.0x</button>
+        </span>
+      </label>
+      <label>따라읽기 쉼
+        <span class="seg" id="gapSeg">
+          <button data-g="0.8">짧게</button>
+          <button data-g="1.2" class="on">보통</button>
+          <button data-g="1.8">길게</button>
+        </span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   ▶ 입문반 수정 안내 (공유자 전용)
+   - 구조: CHAPTERS → 챕터 → sets(세부 항목) → blocks → s(문장)
+   - 각 문장은 ["영어", "한국어 뜻"] 형태. 강조: [[ ]] 노란 하이라이트, {IH} = IM3 뱃지,
+     ___ 는 화면엔 보이되 음성은 건너뜀.
+   ========================================================================= */
+const CHAPTERS = [
+
+ /* ===================== CHAPTER 1 · 자기소개 ===================== */
+ {ch:"CH1", chTitle:"자기소개", sets:[
+
+  {ty:"묘사", title:"자기소개",
+   qen:"Let's start the interview. Tell me a little bit about yourself.",
+   blocks:[
+    {label:"답변", s:[
+     ["Hi, I'm ___.","안녕하세요, 저는 ___이에요."],
+     ["I'm currently looking for a job, and I graduated from ___ University.","저는 지금 구직 중이고, ___ 대학교를 졸업했어요."],
+     ["My favorite food is ___, [[which is]] ___.","제가 가장 좋아하는 음식은 ___인데, ___이에요."],
+     ["{IH} [[I think]] I'm a ___ person.","제 생각엔 저는 ___한 사람이에요."],
+     ["I'm [[quite]] ___, ___. I usually spend time hanging out with my friends.","저는 꽤 ___하고 ___해요. 보통 친구들과 어울리며 시간을 보내요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 2 · 친구·이웃 ===================== */
+ {ch:"CH2", chTitle:"친구 / 이웃", sets:[
+
+  {ty:"묘사", title:"이웃 묘사",
+   qen:"Tell me about one of your neighbors. What are they like?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my neighbor is friendly. [[We've been friends for a long time]].","음, 제 이웃은 친절해요. 우리는 오랫동안 친구였어요."],
+     ["Actually, we met when she first moved next door.","사실, 그녀가 옆집에 처음 이사 왔을 때 만났어요."],
+     ["You know, we [[became friends]] fast because we [[have so much in common]]. We both like ___, ___ and ___.","있잖아요, 우리는 공통점이 많아서 빨리 친구가 됐어요. 우리 둘 다 ___, ___, ___을 좋아해요."],
+     ["Honestly, I like her because she always [[stays positive]] and cheers me up.","솔직히, 그녀가 항상 긍정적이고 저를 응원해줘서 좋아해요."],
+     ["{IH} I feel really lucky to have such a wonderful neighbor.","이렇게 멋진 이웃이 있어서 정말 운이 좋다고 느껴요."],
+     ["{IH} We also spend time together and enjoy each other's company.","우리는 함께 시간을 보내며 서로의 동행을 즐겨요."]]}
+   ]},
+
+  {ty:"RP", title:"Ava 이웃 물어보기",
+   qen:"15. I also have close neighbors. Ask me 3 or 4 questions about my neighbor.",
+   rp:true,
+   blocks:[
+    {label:"질문", s:[
+     ["Oh! You also have neighbors, that's amazing! What is his or her name?","오! 당신도 이웃이 있군요, 멋져요! 그분 이름이 뭐예요?"],
+     ["So, how's your neighbor's personality? Is he or she outgoing?","그래서, 이웃 성격은 어때요? 외향적인가요?"],
+     ["{IH} How long have you two known each other? When did you first meet?","두 분은 서로 안 지 얼마나 됐어요? 언제 처음 만났어요?"],
+     ["Also, do you have any memorable experiences with your neighbor?","또, 이웃과 기억에 남는 경험이 있어요?"],
+     ["{IH} What do you usually do when you spend time together?","함께 시간을 보낼 때 보통 뭘 해요?"],
+     ["I think this is all I want to ask.","이게 제가 묻고 싶은 전부인 것 같아요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 3 · 동네 ===================== */
+ {ch:"CH3", chTitle:"동네", sets:[
+
+  {ty:"묘사", title:"동네(장소) 묘사",
+   qen:"I would like to know about your neighborhood. What does it look like? Please describe it in as much detail as possible.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my town is called ___. [[I've been living]] here for 10 years.","음, 우리 동네는 ___라고 해요. 저는 여기 10년째 살고 있어요."],
+     ["Honestly, my neighborhood is peaceful and quiet, which I really enjoy.","솔직히, 우리 동네는 평화롭고 조용한데, 저는 그게 정말 좋아요."],
+     ["Also, there are ___ nearby / [[within walking distance]].","또, 근처에 / 도보 거리 내에 ___이 있어요."],
+     ["{IH} For example, there are parks, cafes, and convenience stores.","예를 들어, 공원, 카페, 편의점이 있어요."],
+     ["{IH} It is one of my favorite things about living here.","그게 여기 사는 것에서 제가 가장 좋아하는 점 중 하나예요."],
+     ["So, I usually buy coffee at a coffee shop [[on my way to work]].","그래서, 저는 보통 출근길에 카페에서 커피를 사요."],
+     ["Also, I take the subway to work, and it only takes about 20 minutes.","또, 지하철로 출근하는데, 20분밖에 안 걸려요."],
+     ["It is busy during the rush hour.","출퇴근 시간엔 붐벼요."],
+     ["You know, I like living in this town.","있잖아요, 저는 이 동네에 사는 게 좋아요."],
+     ["{IH} The convenience stores and cafes make my daily life much easier.","편의점과 카페가 제 일상을 훨씬 편하게 해줘요."],
+     ["{IH} Overall, I am really happy living here and would not want to move.","전체적으로, 저는 여기 사는 게 정말 행복하고 이사 가고 싶지 않아요."]]}
+   ]},
+
+  {ty:"경험", title:"만능1 - 누구 만남",
+   qen:"Please tell me about a memorable experience you have had in your neighborhood. When and where did it occur, and what happened?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, a memorable experience happened not a while ago.","사실, 기억에 남는 경험이 최근에 있었어요."],
+     ["So, last weekend, I met my ex in my neighborhood.","그래서, 지난 주말, 동네에서 전 애인을 만났어요."],
+     ["You know, I went for a walk to [[clear my head]].","있잖아요, 생각을 정리하려고 산책을 나갔어요."],
+     ["When I walked outside, I saw someone. Guess who?","밖에 나가 걸을 때, 누군가를 봤어요. 누구였게요?"],
+     ["My ex was walking [[toward me]].","전 애인이 저를 향해 걸어오고 있었어요."],
+     ["{IH} I stopped walking. I did not know what to do.","저는 걸음을 멈췄어요. 어떻게 해야 할지 몰랐어요."],
+     ["Honestly, [[I wasn't sure if I should]] say hello or just keep walking.","솔직히, 인사를 해야 할지 그냥 계속 걸어야 할지 고민됐어요."],
+     ["{IH} But I took a breath and decided to say hello.","하지만 숨을 한번 고르고 인사하기로 했어요."],
+     ["So, [[in the end]], we stopped and had a talk.","그래서, 결국, 우리는 멈춰서 이야기를 나눴어요."],
+     ["It was [[weird]] and [[awkward]]. But it was nice to have a talk.","이상하고 어색했어요. 하지만 이야기 나눠서 좋았어요."]]}
+   ]},
+
+  {ty:"경험", title:"만능2 - 비",
+   qen:"Tell me about another memorable experience you had in your neighborhood.",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, a memorable experience happened a few months ago.","사실, 기억에 남는 경험이 몇 달 전에 있었어요."],
+     ["So, I was outside with my friends, and it suddenly started to rain.","그래서, 친구들과 밖에 있었는데, 갑자기 비가 오기 시작했어요."],
+     ["You know, we didn't have umbrellas, so we ran to a [[nearby coffee shop]].","있잖아요, 우리는 우산이 없어서, 근처 카페로 뛰어갔어요."],
+     ["{IH} When we got there, we were very wet, but we laughed a lot.","도착했을 때, 흠뻑 젖었지만, 많이 웃었어요."],
+     ["Also, we ordered hot drinks and watched the rain.","또, 따뜻한 음료를 시키고 비를 구경했어요."],
+     ["It was cold, but we had fun memories.","추웠지만, 즐거운 추억을 만들었어요."],
+     ["{IH} Looking back, it turned into one of my favorite memories.","돌이켜보면, 제가 가장 좋아하는 추억 중 하나가 됐어요."],
+     ["Honestly, I had a really [[relaxing time]] with my friends.","솔직히, 친구들과 정말 편안한 시간을 보냈어요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 4 · 집·집안일 ===================== */
+ {ch:"CH4", chTitle:"집 / 집안일", sets:[
+
+  {ty:"묘사", title:"집(장소) 묘사",
+   qen:"Please tell me about your house. What's your favorite room? What does it look like?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I live alone in a studio apartment.","음, 저는 원룸에서 혼자 살아요."],
+     ["Actually, it is small but cozy. It is sunny and warm too.","사실, 작지만 아늑해요. 햇빛도 잘 들고 따뜻해요."],
+     ["So, it feels really nice during the day.","그래서, 낮에 정말 기분이 좋아요."],
+     ["Also, I don't have many spaces or furniture in my home.","또, 집에 공간이나 가구가 많지 않아요."],
+     ["There's just a coffee table and a bed.","커피 테이블이랑 침대만 있어요."],
+     ["I also have a washing machine and a vacuum cleaner.","세탁기랑 청소기도 있어요."],
+     ["{IH} When I have free time, I usually watch Netflix in my bed.","여유 시간이 있으면, 보통 침대에서 넷플릭스를 봐요."],
+     ["Honestly, it's my favorite way to relax.","솔직히, 그게 제가 가장 좋아하는 휴식 방법이에요."],
+     ["{IH} I like to keep my room clean and simple, so it does not feel messy.","방을 깨끗하고 단순하게 유지하는 걸 좋아해서, 지저분해 보이지 않아요."]]}
+   ]},
+
+  {ty:"경험", title:"최근 집에 준 변화",
+   qen:"Have you made any changes to your house recently? What did you change, and are you satisfied with it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I recently bought some new lighting, and I really like it.","사실, 최근에 새 조명을 샀는데, 정말 마음에 들어요."],
+     ["You know, I wanted to change the feel of my room, and I finally did it.","있잖아요, 방 분위기를 바꾸고 싶었는데, 드디어 해냈어요."],
+     ["It [[makes]] my home [[look]] more cozy and comfy.","그게 우리 집을 더 아늑하고 편안해 보이게 해요."],
+     ["Honestly, I think lighting can change the mood.","솔직히, 조명이 분위기를 바꿀 수 있다고 생각해요."],
+     ["{IH} A small change like that can make such a big difference.","그런 작은 변화가 큰 차이를 만들 수 있어요."],
+     ["I bought it a few weeks ago. I went to Ikea with my friend.","몇 주 전에 샀어요. 친구와 이케아에 갔어요."],
+     ["Also, it was only 20 dollars, and I really liked it.","또, 20달러밖에 안 했는데, 정말 마음에 들었어요."],
+     ["{IH} I think changing the mood of a room is really important.","방 분위기를 바꾸는 게 정말 중요하다고 생각해요."]]}
+   ]},
+
+  {ty:"묘사", title:"집에서 하는 것 / 루틴 (집안일)",
+   qen:"What do you usually do at home? How is your typical routine at home?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I live alone, so I have to do a lot of house chores.","음, 저는 혼자 살아서, 집안일을 많이 해야 해요."],
+     ["So, I do the dishes everyday, and vacuum the floor on weekends.","그래서, 매일 설거지를 하고, 주말엔 바닥 청소기를 돌려요."],
+     ["Also, I do the laundry when I have time.","또, 시간이 있을 때 빨래를 해요."],
+     ["{IH} I usually spend a few hours on weekends to finish all my chores.","보통 주말에 몇 시간을 들여 집안일을 다 끝내요."],
+     ["You know, I usually take out the trash on weekends.","있잖아요, 보통 주말에 쓰레기를 내놔요."],
+     ["I recycle paper, plastic, metal and so on.","종이, 플라스틱, 금속 등을 재활용해요."],
+     ["These days, I'm really busy, so I do house chores only on weekends.","요즘, 정말 바빠서, 집안일을 주말에만 해요."],
+     ["{IH} It is not easy, but I try my best to keep my home clean.","쉽지 않지만, 집을 깨끗하게 유지하려고 최선을 다해요."]]}
+   ]},
+
+  {ty:"경험", title:"집에 문제가 생긴 경험 (에어컨 고장)",
+   qen:"Have you ever had any problems with your home? What was the problem, and how did you deal with it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, a few months ago, my air conditioner stopped working.","사실, 몇 달 전, 에어컨이 작동을 멈췄어요."],
+     ["{IH} It stopped working suddenly, and I did not know what to do.","갑자기 멈춰서, 어떻게 해야 할지 몰랐어요."],
+     ["So, it was [[so hot that]] I panicked. Summer in Korea is really hot.","그래서, 너무 더워서 당황했어요. 한국의 여름은 정말 더워요."],
+     ["{IH} I was sweating the whole time and could not sleep well at night.","내내 땀을 흘렸고 밤에 잠을 잘 못 잤어요."],
+     ["Also, I called the customer service center, but I had to wait for 2 weeks.","또, 고객센터에 전화했는데, 2주를 기다려야 했어요."],
+     ["I couldn't believe it!","믿을 수가 없었어요!"],
+     ["{IH} In the meantime, I went to a movie theater or a coffee shop everyday.","그동안, 매일 영화관이나 카페에 갔어요."],
+     ["Also, sometimes, I stayed at my friends' place. That was a tough time.","또, 가끔 친구 집에 머물렀어요. 힘든 시간이었어요."],
+     ["{IH} That was really hard, and I never want to go through it again.","정말 힘들었고, 다시는 겪고 싶지 않아요."]]}
+   ]},
+
+  {ty:"비교", title:"어릴 때 살던 집 vs 지금 집",
+   qen:"Compare the home you lived in before to the one you live in now. What are the differences?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, in the past, I used to live with my family in an apartment.","음, 과거에는, 가족과 아파트에서 살았어요."],
+     ["Also, I had many books, so I had bookshelves.","또, 책이 많아서, 책장이 있었어요."],
+     ["Honestly, I used to like reading books when I was little.","솔직히, 어렸을 때 책 읽는 걸 좋아했어요."],
+     ["{IH} I used to spend hours reading. It was a big part of my daily life.","몇 시간씩 책을 읽곤 했어요. 제 일상의 큰 부분이었어요."],
+     ["However, now I live alone in a studio apartment.","하지만, 지금은 원룸에서 혼자 살아요."],
+     ["So, I don't have many books. Instead, I have a TV.","그래서, 책이 많지 않아요. 대신, TV가 있어요."],
+     ["{IH} My life changed a lot after I started living alone.","혼자 살기 시작한 후 제 삶이 많이 바뀌었어요."],
+     ["These days, I like watching TV when I have free time.","요즘, 여유 시간엔 TV 보는 걸 좋아해요."]]}
+   ]},
+
+  {ty:"RP", title:"집 수리 - 예약 잡기",
+   qen:"You found a problem at your home. Ask a repair person 3 or 4 questions about the problem you want to fix.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, is this the Samsung service center?","여보세요, 삼성 서비스 센터죠?"],
+     ["Actually, my air conditioner stopped working.","사실, 에어컨이 작동을 멈췄어요."],
+     ["Also, I tried turning it on and off, but it is still not working.","또, 껐다 켰다 해봤는데, 여전히 작동을 안 해요."],
+     ["{IH} It makes a strange noise, so I am a little worried.","이상한 소리가 나서, 조금 걱정돼요."],
+     ["So, could you please send someone? Can you come fix it?","그래서, 누구 좀 보내주실 수 있나요? 와서 고쳐주실 수 있어요?"],
+     ["Are you available tomorrow?","내일 가능하세요?"],
+     ["{IH} How long does the repair take?","수리는 얼마나 걸려요?"],
+     ["Oh, 11 a.m.? I'm sorry, I have a class at that time.","아, 오전 11시요? 죄송한데, 그때 수업이 있어요."],
+     ["Would 4 p.m be okay? Can you come at 4 p.m.?","오후 4시는 괜찮아요? 오후 4시에 오실 수 있어요?"],
+     ["Also, how much is the repair fee?","또, 수리비는 얼마예요?"],
+     ["Oh, 200 dollars? That's a little expensive. Can I get a discount?","아, 200달러요? 좀 비싸네요. 할인 받을 수 있어요?"],
+     ["Okay, thank you!","알겠어요, 감사합니다!"]]}
+   ]},
+
+  {ty:"RP", title:"집 수리 - 예약 변경하기",
+   qen:"You already made an appointment, but a problem came up. Call the repair person, explain, and give 2 or 3 alternatives.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, this is ___.","여보세요, 저는 ___이에요."],
+     ["Actually, I think I have to change the reservation.","사실, 예약을 변경해야 할 것 같아요."],
+     ["{IH} I am really sorry for the trouble.","번거롭게 해서 정말 죄송해요."],
+     ["So, I just got positive for Covid19.","그래서, 방금 코로나 양성이 나왔어요."],
+     ["Also, I had a fever, headache and sore throat, so I went to see a doctor.","또, 열, 두통, 목 아픔이 있어서, 병원에 갔어요."],
+     ["{IH} The doctor told me to stay home and rest for a few days.","의사 선생님이 며칠 집에서 쉬라고 했어요."],
+     ["So, do you work on weekends? Or are you available this Saturday?","그래서, 주말에 일하세요? 아니면 이번 주 토요일에 가능하세요?"],
+     ["Oh, then can I change it to this Saturday?","아, 그럼 이번 주 토요일로 바꿀 수 있을까요?"],
+     ["Ok, Thank you very much.","네, 정말 감사합니다."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 5 · 가구·가전 ===================== */
+ {ch:"CH5", chTitle:"가구 / 가전", sets:[
+
+  {ty:"묘사", title:"집에 있는 가구 (커피 테이블)",
+   qen:"Tell me about your favorite piece of furniture in your house. What does it look like? Why is it your favorite?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my favorite furniture is my coffee table.","음, 제가 가장 좋아하는 가구는 커피 테이블이에요."],
+     ["Actually, I live alone in a studio apartment, so I don't have a lot of space.","사실, 원룸에서 혼자 살아서, 공간이 많지 않아요."],
+     ["So, I use the coffee table for many things.","그래서, 커피 테이블을 여러 용도로 써요."],
+     ["You know, I usually have coffee there, but also have meals.","있잖아요, 보통 거기서 커피를 마시지만, 식사도 해요."],
+     ["{IH} When I study or read books, I also use it as a desk.","공부하거나 책을 읽을 때, 책상으로도 써요."],
+     ["I like the coffee table the most, it is my dining table and desk.","커피 테이블을 가장 좋아하는데, 제 식탁이자 책상이에요."],
+     ["{IH} I cannot imagine my daily life without it. It is very useful.","그게 없는 일상은 상상할 수 없어요. 정말 유용해요."]]}
+   ]},
+
+  {ty:"경험", title:"최근 산 가구 문제 (침대가 너무 큼)",
+   qen:"Tell me about a piece of furniture you bought recently. Where did you buy it, and did you have any problems?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, this happened to me before.","사실, 전에 이런 일이 있었어요."],
+     ["So, I bought a bed online when I moved.","그래서, 이사할 때 침대를 온라인으로 샀어요."],
+     ["{IH} I thought it looked nice in the picture, so I just ordered it.","사진으로 보기 좋아서, 그냥 주문했어요."],
+     ["However, when the bed was delivered, it was too big.","그런데, 침대가 배송됐을 때, 너무 컸어요."],
+     ["You know, it was so big that I couldn't close the bedroom door.","있잖아요, 너무 커서 방문을 닫을 수가 없었어요."],
+     ["{IH} I was really surprised and did not know what to do.","정말 놀랐고 어떻게 해야 할지 몰랐어요."],
+     ["Also, I wanted to return it, but the return fee was 100 dollars.","또, 반품하고 싶었는데, 반품비가 100달러였어요."],
+     ["So, I just decided to keep it and use it.","그래서, 그냥 두고 쓰기로 했어요."],
+     ["Now, I like it!","지금은, 마음에 들어요!"]]}
+   ]},
+
+  {ty:"경험", title:"빌린 가전에 문제가 생긴 경험 (노트북)",
+   qen:"Tell me about a time when you borrowed an electronic appliance that got damaged. What was the problem, and how did you solve it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I borrowed a laptop from my friend a few months ago.","사실, 몇 달 전 친구에게 노트북을 빌렸어요."],
+     ["So, I went to a coffee shop with the laptop.","그래서, 노트북을 들고 카페에 갔어요."],
+     ["However, I spilled coffee all over the laptop. I panicked.","그런데, 노트북에 커피를 다 쏟았어요. 당황했어요."],
+     ["{IH} I felt really bad because it was not even my laptop.","제 노트북도 아니라서 정말 미안했어요."],
+     ["So, I called a customer service center and asked about the repair cost.","그래서, 고객센터에 전화해서 수리비를 물었어요."],
+     ["It was expensive, so I gave my friend 1000 dollars to fix it.","비싸서, 친구에게 고치라고 1000달러를 줬어요."],
+     ["{IH} After that, I learned to be more careful with other people's things.","그 후, 다른 사람 물건을 더 조심하는 법을 배웠어요."]]}
+   ]},
+
+  {ty:"비교", title:"가구 과거 vs 현재 비교",
+   qen:"Compare the furniture in your home now with the furniture in your home when you grew up. What are the differences?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, many things in my house changed.","음, 우리 집에 많은 게 바뀌었어요."],
+     ["Actually, I used to live with my family, but now I live alone.","사실, 가족과 살았는데, 지금은 혼자 살아요."],
+     ["So, I live in a studio apartment and don't have a lot of furniture.","그래서, 원룸에 살고 가구가 많지 않아요."],
+     ["Also, the bed is bigger than the bed I had when I was young.","또, 침대가 어렸을 때 쓰던 것보다 커요."],
+     ["{IH} It is a big change, but I really like my life now.","큰 변화지만, 지금 제 삶이 정말 좋아요."],
+     ["I used to have many children's books, but now I don't.","동화책이 많았는데, 지금은 없어요."],
+     ["So, I don't need bookshelves anymore.","그래서, 더 이상 책장이 필요 없어요."],
+     ["These days, I usually watch Youtube when I'm at home.","요즘, 집에 있을 때 보통 유튜브를 봐요."],
+     ["{IH} I think my taste has changed a lot over the years.","제 취향이 수년간 많이 바뀐 것 같아요."]]}
+   ]},
+
+  {ty:"RP", title:"가구 구매하기",
+   qen:"You are going to a furniture store. Ask the clerk 3 or 4 questions about the furniture you would like to buy.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Well, I'm looking for a dining table and a couch.","음, 식탁이랑 소파를 찾고 있어요."],
+     ["Actually, I recently moved, so I don't have a dining table or a couch.","사실, 최근에 이사해서, 식탁이나 소파가 없어요."],
+     ["Do you have a couch for 3 people?","3인용 소파 있나요?"],
+     ["Also, do you have a white couch? My favorite color is white.","또, 흰색 소파 있나요? 제가 가장 좋아하는 색이 흰색이에요."],
+     ["{IH} Oh, this one is nice! Can you tell me what it is made of?","아, 이거 좋네요! 무슨 소재인지 알려주실 수 있나요?"],
+     ["How much is it? And how much is the delivery fee?","얼마예요? 그리고 배송비는 얼마예요?"],
+     ["{IH} 100 dollars for delivery? That is a bit much. Can I get a discount?","배송비 100달러요? 좀 비싸네요. 할인 받을 수 있어요?"],
+     ["That's a little expensive. Thank you.","좀 비싸네요. 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"가구 - 교환/환불 요청",
+   qen:"You received the furniture you bought, but there's something wrong. Call the store, explain, and ask for an exchange or a refund.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Actually, I'm calling because I received the furniture, but there's a problem.","사실, 가구를 받았는데 문제가 있어서 전화했어요."],
+     ["So, it is bigger than I expected.","그래서, 생각보다 커요."],
+     ["The dining table is too big for my apartment.","식탁이 제 아파트엔 너무 커요."],
+     ["You know, I wanted to put it in the living room, but it's too large.","있잖아요, 거실에 두려고 했는데, 너무 커요."],
+     ["{IH} I am really not happy with this. I want to solve this quickly.","정말 마음에 안 들어요. 빨리 해결하고 싶어요."],
+     ["Can I return it?","반품할 수 있나요?"],
+     ["Can I get a refund? Is it possible to get a refund?","환불받을 수 있나요? 환불 가능한가요?"],
+     ["{IH} If a refund is not possible, can I exchange it for a smaller one?","환불이 안 되면, 더 작은 걸로 교환할 수 있나요?"],
+     ["Ok, should I pay the delivery cost for the return?","알겠어요, 반품 배송비를 제가 내야 하나요?"],
+     ["Oh, 50 dollars? That's expensive, but I'll pay. Thank you.","아, 50달러요? 비싸지만, 낼게요. 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"가구 - 품절 상황 대안 제시",
+   qen:"The furniture you were planning to buy is no longer available. Explain why you need it, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Oh, really? I cannot buy that anymore?","아, 정말요? 이제 그걸 살 수 없어요?"],
+     ["That's too bad. I really liked that one.","너무 아쉬워요. 그거 정말 마음에 들었는데."],
+     ["Well, then do you have a similar item?","음, 그럼 비슷한 제품 있나요?"],
+     ["What about different colors?","다른 색은 어때요?"],
+     ["Hmm, the yellow one is cute, but I really want the white one.","음, 노란색도 귀엽지만, 흰색을 정말 원해요."],
+     ["White is my favorite color, so I want to wait.","흰색이 제 최애 색이라, 기다리고 싶어요."],
+     ["{IH} Do you know when the white one will come back in stock?","흰색이 언제 재입고될지 아세요?"],
+     ["Then, please give me a call when it's back in stock.","그럼, 재입고되면 전화 주세요."],
+     ["Thank you so much.","정말 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"MP3 - 친구에게 물어보기 (추천)",
+   qen:"You'd like to buy an MP3 player. Call your friend and ask 3 or 4 questions about the one they use.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. What's up?","야, ___. 잘 지내?"],
+     ["Actually, I want to buy an MP3 player, so I have a question.","사실, MP3를 사고 싶어서, 질문이 있어."],
+     ["How many gigabytes is it?","몇 기가야?"],
+     ["Oh, 16 gigabytes? That sounds good.","아, 16기가? 괜찮네."],
+     ["Also, how many songs do you have on it? 300 songs? Nice!","또, 노래 몇 곡 있어? 300곡? 좋다!"],
+     ["{IH} Does it have good sound quality? Is it easy to use?","음질은 좋아? 사용하기 쉬워?"],
+     ["How much was it?","얼마였어?"],
+     ["200 dollars? Wow, that's a good price.","200달러? 와, 좋은 가격이네."],
+     ["Also, where did you buy it? You bought it online?","또, 어디서 샀어? 온라인에서 샀어?"],
+     ["{IH} That's great! I will check out their website later.","좋아! 나중에 그 사이트 확인해볼게."],
+     ["Thanks!","고마워!"]]}
+   ]},
+
+  {ty:"RP", title:"MP3 - 친구에게 빌리기",
+   qen:"You are going to borrow an MP3 player from your friend. Explain why and ask 3 or 4 questions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. My MP3 player isn't working.","야, ___. 내 MP3가 작동을 안 해."],
+     ["So, can I borrow yours?","그래서, 네 거 빌려도 돼?"],
+     ["How many songs are there in your MP3 player?","네 MP3엔 노래 몇 곡 있어?"],
+     ["300 songs? Nice!","300곡? 좋다!"],
+     ["Also, what kind of music do you have?","또, 어떤 음악 있어?"],
+     ["My favorite singer is ___. Do you have their songs?","내 최애 가수는 ___야. 그 노래들 있어?"],
+     ["No? You should listen to their songs! They're great!","없어? 너 그 노래 들어봐야 해! 정말 좋아!"],
+     ["{IH} I will be really careful with it. I promise.","정말 조심히 쓸게. 약속해."],
+     ["Also, when should I return it to you?","또, 언제 돌려주면 돼?"],
+     ["Next week? Okay, thanks!","다음 주? 알겠어, 고마워!"]]}
+   ]},
+
+  {ty:"RP", title:"MP3 - 친구 것을 고장낸 상황",
+   qen:"You accidentally broke your friend's MP3 player. Explain the situation and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. I'm sorry, your MP3 player stopped working.","야, ___. 미안한데, 네 MP3가 작동을 멈췄어."],
+     ["Actually, I dropped it by accident, and the screen broke.","사실, 실수로 떨어뜨려서, 화면이 깨졌어."],
+     ["So, I was on the subway, someone pushed me, and then I dropped it.","그래서, 지하철에 있었는데, 누가 밀어서, 떨어뜨렸어."],
+     ["{IH} I feel really bad about this. I am so sorry.","정말 미안하게 생각해. 너무 미안해."],
+     ["I want to buy you a new one.","새 걸 사주고 싶어."],
+     ["How much was it?","얼마였어?"],
+     ["2,000 dollars?! That's really expensive.","2,000달러?! 정말 비싸네."],
+     ["So, maybe I can give you some money.","그래서, 돈으로 줄 수도 있어."],
+     ["{IH} Is there anything else I can do to make it up to you?","보상할 다른 방법이 있을까?"],
+     ["Also, I'll buy you lunch. There's a great sushi restaurant near my place.","또, 점심 살게. 우리 집 근처에 좋은 초밥집이 있어."],
+     ["Let's go together. I'm really sorry again.","같이 가자. 정말 다시 미안해."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 6 · 영화 ===================== */
+ {ch:"CH6", chTitle:"영화", sets:[
+
+  {ty:"묘사", title:"영화관에 가면 하는 것 (루틴)",
+   qen:"What is your routine when you go to the theater? What do you do before watching movies? What about after?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, the theater near my home is big and modern.","음, 집 근처 영화관은 크고 현대적이에요."],
+     ["Also, in the lobby, there's a ticket machine, a snack bar, and a small shop.","또, 로비에는 발권기, 매점, 작은 상점이 있어요."],
+     ["When I go to the movies, I first buy tickets.","영화 보러 가면, 먼저 표를 사요."],
+     ["Then, I usually buy popcorn and sodas, or sometimes nachos.","그다음, 보통 팝콘과 음료, 가끔 나초를 사요."],
+     ["Also, I go to the restroom before the movie starts.","또, 영화 시작 전에 화장실에 가요."],
+     ["{IH} The screens are large and the seats are soft, so it is very comfortable.","스크린이 크고 좌석이 푹신해서, 아주 편안해요."],
+     ["I usually visit on weekend evenings with my friends.","보통 주말 저녁에 친구들과 가요."],
+     ["{IH} Going to the movies is one of my favorite things to do on weekends.","영화 보러 가는 건 주말에 가장 좋아하는 일 중 하나예요."]]}
+   ]},
+
+  {ty:"묘사", title:"좋아하는 영화 장르",
+   qen:"You indicated that you enjoy watching movies. What is your favorite type of movie and why?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I like science fiction movies.","음, 저는 공상과학 영화를 좋아해요."],
+     ["You know, I love imaginative stories.","있잖아요, 상상력 넘치는 이야기를 정말 좋아해요."],
+     ["I can imagine many new things while watching movies.","영화를 보며 많은 새로운 것을 상상할 수 있어요."],
+     ["Also, the stories are full of new ideas.","또, 이야기에 새로운 아이디어가 가득해요."],
+     ["{IH} I like them because they show a world that does not exist yet.","아직 존재하지 않는 세상을 보여줘서 좋아해요."],
+     ["When I watch movies, I can forget about my daily stress.","영화를 볼 때, 일상의 스트레스를 잊을 수 있어요."],
+     ["{IH} It is a really good way to relax after a long day.","긴 하루 끝에 쉬기에 정말 좋은 방법이에요."]]}
+   ]},
+
+  {ty:"경험", title:"기억에 남는 영화 (인셉션)",
+   qen:"Talk about a movie you remember best. What was it about? Who was in it? How did you feel when watching it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, the most memorable movie is \"Inception.\"","음, 가장 기억에 남는 영화는 \"인셉션\"이에요."],
+     ["Actually, it is a science fiction movie by Christopher Nolan.","사실, 크리스토퍼 놀란 감독의 공상과학 영화예요."],
+     ["It came out about 10 years ago.","약 10년 전에 나왔어요."],
+     ["So, the plot is about people entering and changing dreams.","그래서, 줄거리는 사람들이 꿈에 들어가 바꾸는 내용이에요."],
+     ["{IH} I remember watching it for the first time and feeling really amazed.","처음 봤을 때 정말 놀랐던 게 기억나요."],
+     ["I loved its storytelling.","그 스토리텔링이 정말 좋았어요."],
+     ["Also, the action scenes and visual effects were stunning.","또, 액션 장면과 시각 효과가 엄청났어요."],
+     ["{IH} The story was so unique that I thought about it for days after.","이야기가 너무 독특해서 며칠 동안 생각했어요."],
+     ["I recommend it to you, Ava!","너한테 추천해, Ava!"]]}
+   ]},
+
+  {ty:"경험", title:"영화 보다 문제가 생긴 경험 (지루한 영화)",
+   qen:"Can you remember a time when you had a problem while watching movies? What was the problem, and how did you solve it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I went to the movies with my bestie last weekend.","사실, 지난 주말에 절친이랑 영화관에 갔어요."],
+     ["So, I wanted to see the movie called \"___\".","그래서, \"___\"라는 영화를 보고 싶었어요."],
+     ["It looked fun when it was released.","개봉했을 때 재밌어 보였어요."],
+     ["However, it was boring and not interesting at all!","그런데, 지루하고 전혀 재미없었어요!"],
+     ["{IH} We were both really bored, so we decided to leave early.","우리 둘 다 너무 지루해서, 일찍 나가기로 했어요."],
+     ["So, we just slipped out and went to the shopping mall.","그래서, 그냥 빠져나와서 쇼핑몰에 갔어요."],
+     ["{IH} It was a waste of money, but we had fun at the mall!","돈 낭비였지만, 쇼핑몰에서 재밌게 놀았어요!"]]}
+   ]},
+
+  {ty:"RP", title:"친구에게 영화 물어보기",
+   qen:"One of your friends has told you about a new movie that sounds interesting. Ask your friend 3 or 4 questions about the movie.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Oh, it sounds interesting!","오, 재밌겠다!"],
+     ["So, what genre is it? Is it action, comedy, or something else?","그래서, 무슨 장르야? 액션, 코미디, 아니면 다른 거?"],
+     ["{IH} I love action movies! I hope it has good fight scenes.","난 액션 영화 정말 좋아해! 멋진 액션 장면이 있으면 좋겠어."],
+     ["Do you know who is in that movie?","그 영화에 누가 나오는지 알아?"],
+     ["I'm curious about the main actors.","주연 배우들이 궁금해."],
+     ["Also, why do you like it? The story, the visuals, or the music?","또, 왜 그게 좋아? 스토리, 영상미, 아니면 음악?"],
+     ["{IH} I usually pick movies based on the story. What about you?","난 보통 스토리를 보고 영화를 골라. 넌 어때?"],
+     ["Do you want to watch it with me?","나랑 같이 볼래?"],
+     ["So, when are you free? This Saturday sounds nice.","그래서, 언제 시간 돼? 이번 토요일 좋을 것 같아."],
+     ["Ok, see you then!","좋아, 그때 보자!"]]}
+   ]},
+
+  {ty:"RP", title:"Ava에게 질문하기 (15번)",
+   qen:"I also like to watch movies. Ask me 3 or 4 questions to find out the movie I like to watch.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Oh, you like movies?","아, 너 영화 좋아해?"],
+     ["So, what's your favorite genre? Like sci-fi, romance, or comedy?","그래서, 가장 좋아하는 장르가 뭐야? 공상과학, 로맨스, 코미디 같은?"],
+     ["{IH} Is there a movie you saw recently that you really liked?","최근에 본 영화 중에 정말 좋았던 거 있어?"],
+     ["Do you prefer new releases or classic films?","새 개봉작이 좋아, 아니면 고전 영화가 좋아?"],
+     ["I prefer classic films. I recommend you to watch ___.","난 고전 영화가 좋아. ___ 보는 걸 추천해."],
+     ["{IH} Who is your favorite actor? And why do you like him or her?","가장 좋아하는 배우는 누구야? 왜 그 사람을 좋아해?"],
+     ["This is all I want to ask!","이게 내가 묻고 싶은 전부야!"]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 7 · 음악 감상 ===================== */
+ {ch:"CH7", chTitle:"음악 감상", sets:[
+
+  {ty:"묘사", title:"언제 음악을 듣는지 (경향)",
+   qen:"Where and when do you usually listen to music? What do you use to listen to music?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I enjoy listening to music everyday.","음, 저는 매일 음악 듣는 걸 즐겨요."],
+     ["Actually, I usually listen to classical or jazz music when I am at home.","사실, 집에 있을 땐 보통 클래식이나 재즈를 들어요."],
+     ["It's really calm, and it helps me focus.","정말 차분하고, 집중하는 데 도움이 돼요."],
+     ["{IH} Without music, I find it really hard to concentrate.","음악이 없으면, 집중하기가 정말 어려워요."],
+     ["I also listen to music when I go to work.","출근할 때도 음악을 들어요."],
+     ["You know, I usually listen to pop songs.","있잖아요, 보통 팝송을 들어요."],
+     ["Without music, time feels slow!","음악이 없으면, 시간이 느리게 가요!"],
+     ["{IH} Music really makes my daily life so much better.","음악은 제 일상을 정말 훨씬 더 좋게 만들어줘요."]]}
+   ]},
+
+  {ty:"묘사", title:"좋아하는 장르 / 최애 가수",
+   qen:"You indicated that you enjoy listening to music. What is your favorite type of music? Who is your favorite singer?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I like many kinds of music.","음, 저는 여러 종류의 음악을 좋아해요."],
+     ["Actually, pop is my favorite because it is catchy and easy to sing along to.","사실, 팝이 제 최애예요, 중독성 있고 따라 부르기 쉬워서요."],
+     ["{IH} I love it because singing along always makes me feel good.","따라 부르면 항상 기분이 좋아져서 좋아해요."],
+     ["Also, I enjoy K-pop because the melodies are fun and easy to understand.","또, 멜로디가 재밌고 이해하기 쉬워서 K-pop을 즐겨요."],
+     ["Sometimes, I listen to classical music when I study.","가끔, 공부할 때 클래식 음악을 들어요."],
+     ["Well, my favorite singer is ___. Do you know ___?","음, 제 최애 가수는 ___예요. ___ 아세요?"],
+     ["{IH} I have been a big fan for a long time. I love their style.","오랫동안 열렬한 팬이었어요. 그들의 스타일을 정말 좋아해요."],
+     ["They look really cute and they are so my type.","정말 귀엽고 완전 제 스타일이에요."],
+     ["Their songs are amazing. My favorite song is ___.","그들의 노래는 정말 멋져요. 제 최애 곡은 ___예요."],
+     ["It is about falling in love. You should check out this song, Ava!","사랑에 빠지는 내용이에요. 이 노래 꼭 들어봐, Ava!"]]}
+   ]},
+
+  {ty:"경험", title:"라이브 음악 경험 (콘서트)",
+   qen:"Tell me about a memorable experience you had while listening to live music. What happened?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my favorite singer / group is ___.","음, 제 최애 가수/그룹은 ___예요."],
+     ["Actually, I really wanted to go to their concert last time, but I couldn't.","사실, 지난번에 그들의 콘서트에 정말 가고 싶었는데, 못 갔어요."],
+     ["The tickets were way too expensive!","표가 너무 비쌌어요!"],
+     ["Guess how much? It was 300 dollars! So crazy, right?","얼마인지 맞혀봐요? 300달러였어요! 너무하죠?"],
+     ["Also, the tickets sold out in just 3 seconds.","또, 표가 단 3초 만에 매진됐어요."],
+     ["I didn't even have a chance.","기회조차 없었어요."],
+     ["{IH} That happens a lot in Korea, especially for popular artists.","한국에선, 특히 인기 가수는 이런 일이 자주 있어요."],
+     ["I felt so sad and disappointed that day.","그날 정말 슬프고 실망했어요."],
+     ["{IH} Some people even buy tickets and resell them for much more money.","어떤 사람들은 표를 사서 훨씬 비싸게 되팔기도 해요."],
+     ["But next time, I really want to go.","하지만 다음엔, 정말 가고 싶어요."],
+     ["Seeing them live is one of my dreams!","그들을 라이브로 보는 게 제 꿈 중 하나예요!"]]}
+   ]},
+
+  {ty:"비교", title:"음악 취향 변화",
+   qen:"How has your taste in music changed? How is the music you enjoy now different from the past?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I used to listen to K-pop all the time in high school.","음, 고등학교 땐 항상 K-pop을 들었어요."],
+     ["Everyone loved ___ back then.","그땐 모두가 ___를 좋아했어요."],
+     ["However, now I am more into pop music.","그런데, 지금은 팝 음악에 더 빠져 있어요."],
+     ["{IH} My music taste changed a lot as I grew up.","자라면서 음악 취향이 많이 바뀌었어요."],
+     ["I want to practice English, so I search for pop songs with clear lyrics.","영어를 연습하고 싶어서, 가사가 또렷한 팝송을 찾아봐요."],
+     ["{IH} Listening to English songs is a really fun way to learn.","영어 노래를 듣는 건 정말 재밌게 배우는 방법이에요."],
+     ["Do you know any good song for learning English, Ava?","영어 배우기 좋은 노래 아는 거 있어, Ava?"]]}
+   ]},
+
+  {ty:"RP", title:"티켓 구매 문의 (공연장)",
+   qen:"You are planning to buy tickets for a concert to go with your friend. Call the theater and ask 2 or 3 questions about ways to get tickets.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, I'd like to buy tickets for tonight's concert.","안녕하세요, 오늘 밤 콘서트 표를 사고 싶어요."],
+     ["It's for ___'s concert at 7 PM.","저녁 7시 ___ 콘서트요."],
+     ["Can I book them online?","온라인으로 예매할 수 있나요?"],
+     ["{IH} Also, is there a mobile app where I can check available seats?","또, 남은 좌석을 확인할 수 있는 모바일 앱이 있나요?"],
+     ["It's for two people. How much is one ticket?","두 명이에요. 한 장에 얼마예요?"],
+     ["We want to sit close to the stage, if possible.","가능하면 무대 가까이 앉고 싶어요."],
+     ["Oh, that's a bit expensive.","아, 좀 비싸네요."],
+     ["Do you have any discounts or promotions?","할인이나 프로모션 있나요?"],
+     ["{IH} Is there a student discount or an early booking discount?","학생 할인이나 조기 예매 할인이 있나요?"],
+     ["What about other seats? Are there any left?","다른 좌석은요? 남은 게 있나요?"],
+     ["Oh, they're already sold out? That's too bad.","아, 벌써 매진됐어요? 너무 아쉽네요."],
+     ["Okay, I'll still buy the tickets.","알겠어요, 그래도 표를 살게요."],
+     ["Can I pay by card over the phone?","전화로 카드 결제할 수 있나요?"],
+     ["Alright, thank you.","알겠어요, 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"약속 취소 (친구랑 보기로 했는데 못 가는 상황)",
+   qen:"You already bought the concert tickets, but a problem has come up. Call your friend, explain your situation, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. What's up?","야, ___. 잘 지내?"],
+     ["Actually, I'm really sorry, but I have a problem.","사실, 정말 미안한데, 문제가 생겼어."],
+     ["I don't feel well today.","오늘 몸이 안 좋아."],
+     ["I have a fever and a bad headache.","열이 나고 머리가 너무 아파."],
+     ["{IH} I went to the doctor and they told me to rest at home.","병원에 갔더니 집에서 쉬라고 했어."],
+     ["I think it is Covid, so I'm going to see the doctor now.","코로나인 것 같아서, 지금 병원에 가려고."],
+     ["I don't think I can go tonight. I'm really sorry.","오늘 밤엔 못 갈 것 같아. 정말 미안해."],
+     ["{IH} I feel really bad. I was really looking forward to it.","정말 미안해. 정말 기대했었는데."],
+     ["So, can we go another time? Maybe next weekend?","그래서, 다음에 갈 수 있을까? 다음 주말 어때?"],
+     ["I'll buy you lunch.","내가 점심 살게."],
+     ["Also, do you like sushi? I know a really good sushi place.","또, 너 초밥 좋아해? 정말 맛있는 초밥집 알아."],
+     ["Again, I'm really sorry.","다시 한번, 정말 미안해."]]}
+   ]},
+
+  {ty:"RP", title:"티켓이 매진된 상황 (친구에게)",
+   qen:"You found out the tickets are sold out. Call your friend, explain the situation, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, what's up?","야, 무슨 일이야?"],
+     ["Well, I have some bad news.","음, 안 좋은 소식이 있어."],
+     ["The concert tickets are already sold out.","콘서트 표가 이미 매진됐어."],
+     ["Actually, I tried to book them, but they went really fast.","사실, 예매하려고 했는데, 정말 빨리 팔렸어."],
+     ["{IH} I was so disappointed. I really wanted to go.","정말 실망했어. 진짜 가고 싶었는데."],
+     ["How about going next Friday instead?","대신 다음 주 금요일에 가는 건 어때?"],
+     ["Oh, you're not free then? Hmm, okay.","아, 그땐 시간 안 돼? 음, 알겠어."],
+     ["{IH} Don't worry. We will find another chance to go.","걱정 마. 갈 기회가 또 있을 거야."],
+     ["So, what if we go to dinner instead?","그래서, 대신 저녁 먹으러 가는 건 어때?"],
+     ["Do you like sushi? There's a great restaurant near me.","너 초밥 좋아해? 우리 집 근처에 좋은 식당이 있어."],
+     ["Let's go there together!","같이 거기 가자!"]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 8 · 공원·해변·캠핑 ===================== */
+ {ch:"CH8", chTitle:"공원 · 해변 · 캠핑", sets:[
+
+  {ty:"묘사", title:"공원 장소 묘사",
+   qen:"You said you like to go to parks. Where is it located, and what does it look like? What makes it special?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, there's a park called ___ park.","음, ___ 공원이라는 공원이 있어요."],
+     ["It is in my neighborhood. I usually go there on weekends.","우리 동네에 있어요. 보통 주말에 가요."],
+     ["There are many trees and flowers.","나무와 꽃이 많아요."],
+     ["Actually, cherry blossoms are beautiful in spring.","사실, 봄에 벚꽃이 아름다워요."],
+     ["{IH} It is one of the prettiest things I have seen near my home.","우리 집 근처에서 본 것 중 가장 예쁜 것 중 하나예요."],
+     ["There are benches, playgrounds, jogging tracks, and basketball courts.","벤치, 놀이터, 조깅 트랙, 농구장이 있어요."],
+     ["There are many people taking a walk.","산책하는 사람들이 많아요."],
+     ["Children play in the playground, and some people walk their dogs.","아이들은 놀이터에서 놀고, 어떤 사람들은 개를 산책시켜요."],
+     ["{IH} I love watching people enjoy the park. It always feels nice.","사람들이 공원을 즐기는 걸 보는 게 좋아요. 항상 기분이 좋아요."],
+     ["It is peaceful and chill.","평화롭고 여유로워요."]]}
+   ]},
+
+  {ty:"묘사", title:"해변 / 캠핑 장소 묘사",
+   qen:"Tell me about a beach or campsite you like to visit. Where is it, and what does it look like?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, there's a beach called ___ beach.","음, ___ 해변이라는 해변이 있어요."],
+     ["I go camping there with my friends. It's my favorite spot.","친구들과 거기서 캠핑해요. 제가 가장 좋아하는 곳이에요."],
+     ["It is in my neighborhood. I usually go there on weekends.","우리 동네에 있어요. 보통 주말에 가요."],
+     ["So, the beach is beautiful. The sand is white and soft.","그래서, 해변이 아름다워요. 모래가 하얗고 부드러워요."],
+     ["The water is clean and blue.","물이 깨끗하고 파래요."],
+     ["{IH} When I see the ocean, I always feel calm and relaxed.","바다를 보면, 항상 차분하고 편안해져요."],
+     ["There are many seafood restaurants near the beach.","해변 근처에 해산물 식당이 많아요."],
+     ["Also, I love seafood.","또, 저는 해산물을 정말 좋아해요."],
+     ["{IH} It is really peaceful, and I love spending time there.","정말 평화롭고, 거기서 시간 보내는 걸 좋아해요."]]}
+   ]},
+
+  {ty:"묘사", title:"가서 하는 일 / 루틴",
+   qen:"What is a typical day at the park or beach like, from beginning to end? What do you usually do?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, whenever I go to a park or beach, I just chill and enjoy my time.","음, 공원이나 해변에 갈 때마다, 그냥 쉬면서 시간을 즐겨요."],
+     ["Also, I take some photos with my friends and post them on Instagram.","또, 친구들과 사진을 찍어 인스타그램에 올려요."],
+     ["{IH} I love looking back at the photos. It brings back good memories.","사진을 다시 보는 걸 좋아해요. 좋은 추억이 떠올라요."],
+     ["I also read books or take a nap.","책을 읽거나 낮잠도 자요."],
+     ["I sometimes bring some snacks or beers.","가끔 간식이나 맥주를 가져가요."],
+     ["So, we also have a picnic.","그래서, 소풍도 해요."],
+     ["If we don't bring food, we order something.","음식을 안 가져가면, 뭔가 배달시켜요."],
+     ["{IH} It is easy and convenient, and I always have a great time.","쉽고 편리하고, 항상 즐거운 시간을 보내요."]]}
+   ]},
+
+  {ty:"경험", title:"기억에 남는 경험 (갑자기 비 온 날)",
+   qen:"Tell me about a memorable experience you had at the park or beach. What happened? Explain in detail.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, it was last weekend.","음, 지난 주말이었어요."],
+     ["Actually, I went to my favorite park with my family.","사실, 가족과 제가 가장 좋아하는 공원에 갔어요."],
+     ["{IH} We had such a good time. It was a really nice day.","정말 즐거운 시간을 보냈어요. 정말 좋은 날이었어요."],
+     ["We were drinking beer outside, but suddenly it started to rain.","밖에서 맥주를 마시고 있었는데, 갑자기 비가 오기 시작했어요."],
+     ["{IH} We were so surprised! No one expected rain that day.","정말 놀랐어요! 그날 아무도 비를 예상 못 했어요."],
+     ["We didn't bring an umbrella, so we had to find shelter.","우산을 안 가져와서, 비를 피할 곳을 찾아야 했어요."],
+     ["So, at the park, we went into a cozy coffee shop.","그래서, 공원에서, 아늑한 커피숍에 들어갔어요."],
+     ["I had an iced americano.","아이스 아메리카노를 마셨어요."],
+     ["{IH} It was so warm and relaxing inside. I really enjoyed it.","안은 정말 따뜻하고 편안했어요. 정말 즐거웠어요."],
+     ["We stayed there for a while and just talked.","거기서 한동안 머물며 이야기했어요."],
+     ["It was nice. The rain was a surprise, but it was fun.","좋았어요. 비는 갑작스러웠지만, 재밌었어요."]]}
+   ]},
+
+  {ty:"RP", title:"친구랑 약속 잡기 (공원)",
+   qen:"You have made plans with your friend to go to a local park. Call your friend and ask them 3 or 4 questions about your plans.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. What's up?","야, ___. 잘 지내?"],
+     ["Actually, I want to go on a picnic with you. Are you free tomorrow?","사실, 너랑 소풍 가고 싶어. 내일 시간 돼?"],
+     ["{IH} I'm really looking forward to this!","정말 기대돼!"],
+     ["When do you want to meet? Oh, 10? I have a class. What about 4 pm?","언제 만날래? 아, 10시? 나 수업 있어. 4시는 어때?"],
+     ["Where should we meet? Ok, let's meet at Gangnam station.","어디서 만날까? 좋아, 강남역에서 만나자."],
+     ["{IH} What should we bring? Maybe some snacks and drinks would be nice.","뭘 가져갈까? 간식이랑 음료 좀 가져가면 좋겠다."],
+     ["What are we going to have? Beer sounds good! See you!","우리 뭐 먹을까? 맥주 좋다! 그때 봐!"]]}
+   ]},
+
+  {ty:"RP", title:"친구랑 약속 취소 (공원)",
+   qen:"A problem has come up and you can't meet your friend at the park. Call your friend, explain why in detail, and give one or two alternatives.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. What's up?","야, ___. 잘 지내?"],
+     ["Actually, I'm really sorry, but I have a problem.","사실, 정말 미안한데, 문제가 생겼어."],
+     ["I don't feel well today.","오늘 몸이 안 좋아."],
+     ["I have a fever and a bad headache.","열이 나고 머리가 너무 아파."],
+     ["{IH} I've been feeling sick since this morning. I think it's serious.","아침부터 계속 아팠어. 심각한 것 같아."],
+     ["I think it is Covid, so I'm going to see the doctor now.","코로나인 것 같아서, 지금 병원에 가려고."],
+     ["I don't think I can make it tonight. I'm really sorry.","오늘 밤엔 못 갈 것 같아. 정말 미안해."],
+     ["So, can we meet next time? Maybe next weekend?","그래서, 다음에 만날 수 있을까? 다음 주말 어때?"],
+     ["{IH} I'll make it up to you. I promise.","내가 꼭 보상할게. 약속해."],
+     ["I'll buy you lunch. Do you like sushi? I know a great place.","점심 살게. 너 초밥 좋아해? 좋은 곳 알아."],
+     ["Again, I'm really sorry.","다시 한번, 정말 미안해."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 9 · 식당·음식 ===================== */
+ {ch:"CH9", chTitle:"식당 · 음식", sets:[
+
+  {ty:"묘사", title:"최애 식당 묘사",
+   qen:"Is there a particular restaurant you often go to? What kind of food does it serve? Why do you like to go there?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my favorite restaurant is a Japanese restaurant.","음, 제가 가장 좋아하는 식당은 일식당이에요."],
+     ["Actually, it is called \"___\", and it is in Seoul.","사실, \"___\"라는 곳이고, 서울에 있어요."],
+     ["{IH} I have been going there for a long time. It is my go-to place.","오랫동안 거기 다녔어요. 제 단골집이에요."],
+     ["They have really good sushi, and my favorite is salmon sushi.","거기 초밥이 정말 맛있는데, 제 최애는 연어 초밥이에요."],
+     ["Also, the restaurant is small, there are only 4 or 5 tables.","또, 식당이 작아서, 테이블이 4~5개밖에 없어요."],
+     ["{IH} But because it is small, it feels very cozy and personal.","하지만 작아서, 아늑하고 정겨운 느낌이에요."],
+     ["Actually, the staff are really kind and friendly.","사실, 직원들이 정말 친절하고 다정해요."],
+     ["I'm friends with the manager.","매니저와 친구예요."],
+     ["{IH} They always remember what I like. That makes me feel very welcome.","제가 뭘 좋아하는지 항상 기억해줘요. 그래서 환영받는 느낌이에요."],
+     ["I go there often because I feel comfortable.","편안해서 자주 가요."]]}
+   ]},
+
+  {ty:"묘사", title:"그 식당의 음식 (제일 좋아하는 음식)",
+   qen:"What kind of dishes does it serve? What do you like about the food? What does it look like?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, they have many kinds of sushi.","음, 거기엔 여러 종류의 초밥이 있어요."],
+     ["There are salmon sushi, tuna sushi, avocado maki, and different rolls.","연어 초밥, 참치 초밥, 아보카도 마키, 다양한 롤이 있어요."],
+     ["Actually, among them, my favorite is salmon sushi.","사실, 그중에서 제 최애는 연어 초밥이에요."],
+     ["I love its soft texture.","부드러운 식감이 좋아요."],
+     ["You know, it is not salty, not too sweet.","있잖아요, 짜지도 않고, 너무 달지도 않아요."],
+     ["The taste is just perfect for me.","맛이 제게 딱 완벽해요."],
+     ["{IH} Every time I eat it, I feel really happy. It never gets boring.","먹을 때마다, 정말 행복해요. 절대 질리지 않아요."],
+     ["That's why I really love sushi.","그래서 초밥을 정말 좋아해요."]]}
+   ]},
+
+  {ty:"묘사", title:"한국 음식 / 건강한 음식",
+   qen:"Many countries have special or unique foods. What are some of the traditional dishes in your country?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I think the most famous Korean dish is Bibimbap.","음, 가장 유명한 한국 음식은 비빔밥인 것 같아요."],
+     ["Actually, you can put many things into Bibimbap.","사실, 비빔밥엔 여러 가지를 넣을 수 있어요."],
+     ["There's rice, sprouts, cucumber, cabbage, carrots, and red pepper paste.","밥, 콩나물, 오이, 양배추, 당근, 고추장이 들어가요."],
+     ["{IH} It looks very colorful, and it is also really good for you.","아주 알록달록하고, 건강에도 정말 좋아요."],
+     ["Honestly, I like Bibimbap because it is healthy and colorful.","솔직히, 비빔밥이 건강하고 알록달록해서 좋아해요."],
+     ["Also, it is easy to make.","또, 만들기 쉬워요."],
+     ["I put everything together and just mix it.","다 넣고 그냥 비비면 돼요."],
+     ["{IH} It takes less than 10 minutes to make. It is my go-to home meal.","만드는 데 10분도 안 걸려요. 제 단골 집밥이에요."],
+     ["It tastes great.","맛이 좋아요."]]}
+   ]},
+
+  {ty:"경험", title:"음식에 문제가 생긴 경험 (머리카락)",
+   qen:"Tell me about a problem you had with your order at a restaurant. What happened? Explain in detail.",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, last weekend, I went to my favorite restaurant with my friends.","사실, 지난 주말에 친구들과 제 최애 식당에 갔어요."],
+     ["I ordered ramen, and my friends ordered sushi.","저는 라면을, 친구들은 초밥을 주문했어요."],
+     ["However, I found a hair in my ramen.","그런데, 라면에서 머리카락을 발견했어요."],
+     ["It was so gross.","너무 역겨웠어요."],
+     ["{IH} I lost my appetite right away. I was really upset.","바로 입맛이 떨어졌어요. 정말 속상했어요."],
+     ["I talked to the manager, and I got a refund.","매니저에게 말했고, 환불받았어요."],
+     ["{IH} It was a shame because it used to be my favorite place.","예전엔 최애 식당이었어서 아쉬웠어요."],
+     ["But now, it's not my favorite restaurant anymore.","하지만 이제, 더 이상 제 최애 식당이 아니에요."]]}
+   ]},
+
+  {ty:"RP", title:"식당 예약하기",
+   qen:"You want to make a restaurant reservation. Call the restaurant and ask 3 or 4 questions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, is this ___?","안녕하세요, 거기 ___인가요?"],
+     ["Actually, I'd like to book a table for 5 people.","사실, 5명 자리를 예약하고 싶어요."],
+     ["{IH} We are celebrating a birthday, so we need a nice table.","생일을 축하하는 거라, 좋은 자리가 필요해요."],
+     ["Is there a table at 7pm tomorrow?","내일 저녁 7시에 자리 있나요?"],
+     ["Also, do you have a parking lot? Do you have a vegan menu?","또, 주차장이 있나요? 비건 메뉴는 있나요?"],
+     ["What kind of vegan food and desserts do you have?","어떤 비건 음식이랑 디저트가 있나요?"],
+     ["{IH} Also, is there a private room? We want some privacy.","또, 룸이 있나요? 좀 조용히 있고 싶어요."],
+     ["Ok, thank you so much.","네, 정말 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"음식에 문제가 있는 상황 (식당)",
+   qen:"There's a problem with the food you ordered. Explain the situation to the staff and ask them to solve it.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Excuse me, there's something in my food.","저기요, 음식에 뭔가 있어요."],
+     ["There's a hair in my ramen.","라면에 머리카락이 있어요."],
+     ["This is my favorite dish here, and I'm disappointed.","여기서 제 최애 메뉴인데, 실망이에요."],
+     ["{IH} I really did not expect this. It completely ruined my meal.","정말 예상 못 했어요. 식사를 완전히 망쳤어요."],
+     ["This is gross. Can I talk to the manager?","너무 비위생적이에요. 매니저와 얘기할 수 있나요?"],
+     ["{IH} I would like to get this replaced or get a refund.","교환하거나 환불받고 싶어요."],
+     ["OK, I'd like to get a refund.","네, 환불받을게요."],
+     ["I paid with this card. Thank you.","이 카드로 결제했어요. 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"예약이 안 되는 상황 (친구에게 전화)",
+   qen:"You couldn't book the restaurant. Call your friend, explain the situation, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, I have some bad news.","야, 안 좋은 소식이 있어."],
+     ["Actually, I called the restaurant, but we cannot book a table tomorrow.","사실, 식당에 전화했는데, 내일 자리를 예약할 수 없대."],
+     ["{IH} I tried a few times, but they said they are fully booked.","몇 번 시도했는데, 예약이 꽉 찼대."],
+     ["What about next Friday? You're not free? Hmm. OK.","다음 주 금요일은 어때? 시간 안 돼? 음. 알겠어."],
+     ["{IH} Don't worry. We will find something. I have another idea.","걱정 마. 방법을 찾을 거야. 다른 생각이 있어."],
+     ["What about trying a different restaurant?","다른 식당 가보는 건 어때?"],
+     ["Do you like sushi? I know a great place near me. Let's go!","너 초밥 좋아해? 우리 집 근처에 좋은 곳 알아. 가자!"]]}
+   ]},
+
+  {ty:"RP", title:"친구가 예약한 식당 물어보기",
+   qen:"Your friend booked a restaurant. Call your friend and ask 3 or 4 questions about it.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, what's up?","야, 잘 지내?"],
+     ["Actually, I forgot the name of the restaurant. What was it again?","사실, 식당 이름을 까먹었어. 뭐였더라?"],
+     ["Ok, can you send me the address?","알겠어, 주소 좀 보내줄래?"],
+     ["{IH} I am really excited! I have been wanting to try it for a while.","정말 신나! 한동안 가보고 싶었거든."],
+     ["Also, do they have a parking lot? Do they have a vegan menu?","또, 거기 주차장 있어? 비건 메뉴는 있어?"],
+     ["Do they have vanilla ice cream? Oh, good! I'm craving ice cream.","바닐라 아이스크림 있어? 아, 좋아! 아이스크림 땡겼는데."],
+     ["Do they have an iced latte? Oh, good! I'm craving coffee.","아이스라떼 있어? 아, 좋아! 커피 땡겼는데."],
+     ["Honestly, I'm so excited!","솔직히, 너무 신나!"]]}
+   ]},
+
+  {ty:"RP", title:"식당에 못 가는 상황 (약속 취소)",
+   qen:"You can't go to the restaurant you planned with your friend. Call your friend, explain why, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, ___. What's up?","야, ___. 잘 지내?"],
+     ["Actually, I'm really sorry, but I have a problem.","사실, 정말 미안한데, 문제가 생겼어."],
+     ["I don't feel well today.","오늘 몸이 안 좋아."],
+     ["I have a fever and a bad headache.","열이 나고 머리가 너무 아파."],
+     ["{IH} I've been feeling sick since this morning and it got worse.","아침부터 아팠는데 더 심해졌어."],
+     ["I think it is Covid, so I'm going to see the doctor now.","코로나인 것 같아서, 지금 병원에 가려고."],
+     ["I don't think I can go to dinner. I'm really sorry.","저녁 못 갈 것 같아. 정말 미안해."],
+     ["So, can we meet next time? Maybe next weekend?","그래서, 다음에 만날 수 있을까? 다음 주말 어때?"],
+     ["{IH} I will make sure to keep that day free. I promise.","그날은 꼭 비워둘게. 약속해."],
+     ["I'll buy you lunch.","점심 살게."],
+     ["Also, do you like sushi? I know a really good sushi place.","또, 너 초밥 좋아해? 정말 맛있는 초밥집 알아."],
+     ["Again, I'm really sorry.","다시 한번, 정말 미안해."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 10 · 운동(조깅·걷기·하이킹·자전거) ===================== */
+ {ch:"CH10", chTitle:"조깅 · 걷기 · 하이킹 · 자전거", sets:[
+
+  {ty:"묘사", title:"기본 경향 묘사",
+   qen:"When do you usually exercise? Where do you go? How often, and with whom? How do you feel when you do it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I go for a jog routinely.","음, 저는 규칙적으로 조깅을 해요."],
+     ["Usually, I go in the evening, because it's too hot during the day.","보통, 낮엔 너무 더워서 저녁에 가요."],
+     ["I usually go around 7 p.m. after work.","보통 퇴근 후 저녁 7시쯤 가요."],
+     ["{IH} It has become a habit for me. I feel strange if I skip a day.","습관이 됐어요. 하루 거르면 이상해요."],
+     ["I go for a jog 3 times a week.","일주일에 3번 조깅해요."],
+     ["And each time, I work out at least one hour.","그리고 매번, 최소 한 시간은 운동해요."],
+     ["It helps me stay healthy and clear my mind.","건강을 유지하고 마음을 맑게 하는 데 도움이 돼요."],
+     ["{IH} After working out, I always feel refreshed and in a better mood.","운동 후엔, 항상 상쾌하고 기분이 좋아져요."]]}
+   ]},
+
+  {ty:"묘사", title:"장소 묘사 (공원 / 산)",
+   qen:"Do you have a specific place you like to go for jogging or working out? Where is it located?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I usually work out at a park near my home.","음, 보통 집 근처 공원에서 운동해요."],
+     ["Actually, there are bike paths and jogging trails at the park.","사실, 공원에 자전거 길과 조깅 트랙이 있어요."],
+     ["So it's a great place to work out.","그래서 운동하기 좋은 곳이에요."],
+     ["There's also some outdoor exercise equipment.","야외 운동 기구도 있어요."],
+     ["So, I stretch before starting.","그래서, 시작 전에 스트레칭해요."],
+     ["Also, in the evening, there are many people jogging or biking.","또, 저녁엔 조깅하거나 자전거 타는 사람들이 많아요."],
+     ["Some people walk their dogs.","어떤 사람들은 개를 산책시켜요."],
+     ["On weekends, the park gets crowded because many families come for picnics.","주말엔, 소풍 오는 가족이 많아서 공원이 붐벼요."],
+     ["Sometimes there are food trucks and small concerts too.","가끔 푸드트럭과 작은 공연도 있어요."],
+     ["{IH} It is very lively and I love the energy there.","아주 활기차고 그곳의 에너지가 좋아요."]]}
+   ]},
+
+  {ty:"묘사", title:"루틴 / 준비 / 안전 수칙",
+   qen:"What do you usually do before, during, and after exercising? What do you do to stay safe and avoid injuries?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, there's exercise equipment in the park.","음, 공원에 운동 기구가 있어요."],
+     ["First, I stretch my arms and legs.","먼저, 팔과 다리를 스트레칭해요."],
+     ["{IH} I think warming up is really important to avoid injuries.","부상을 피하려면 준비운동이 정말 중요한 것 같아요."],
+     ["Then, while working out, I listen to music.","그다음, 운동하면서 음악을 들어요."],
+     ["Actually, I usually listen to K-pop because it's fun and gives me energy.","사실, 재밌고 힘이 나서 보통 K-pop을 들어요."],
+     ["Then, after working out, I drink a lot of water.","그다음, 운동 후에 물을 많이 마셔요."],
+     ["Because it's too hot these days.","요즘 너무 더워서요."],
+     ["{IH} If I have time, I sit on a bench and cool down for a few minutes.","시간이 있으면, 벤치에 앉아 몇 분간 식혀요."]]}
+   ]},
+
+  {ty:"묘사", title:"자전거 묘사",
+   qen:"There are many different types of bicycles. Please describe your bicycle in detail. What does it look like? Where did you get it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I don't have a bike now.","음, 지금은 자전거가 없어요."],
+     ["I used to have a bike when I was younger, but I sold it a few years ago.","어렸을 땐 자전거가 있었는데, 몇 년 전에 팔았어요."],
+     ["These days, I usually ride a public bike, called Ttareungi in Korea.","요즘, 한국에서 따릉이라는 공공 자전거를 타요."],
+     ["{IH} It is green and you can find it everywhere. It is very convenient.","초록색이고 어디서나 찾을 수 있어요. 정말 편리해요."],
+     ["It's really cheap. It is only a dollar per hour.","정말 저렴해요. 시간당 1달러밖에 안 해요."],
+     ["{IH} I think it's a great option if you don't want to buy a bike.","자전거를 사고 싶지 않다면 좋은 선택인 것 같아요."]]}
+   ]},
+
+  {ty:"경험", title:"문제가 생긴 경험 (비 와서 미끄러짐)",
+   qen:"Describe a memorable experience you had while exercising or cycling. When did it occur? Who were you with? What happened?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I was riding a bike last weekend.","사실, 지난 주말에 자전거를 탔어요."],
+     ["I was there with my friend, and we planned to work out together.","친구와 함께 있었고, 같이 운동하기로 했어요."],
+     ["However, it suddenly started to rain.","그런데, 갑자기 비가 오기 시작했어요."],
+     ["{IH} We were not ready for that at all. It came out of nowhere.","전혀 준비가 안 됐었어요. 난데없었어요."],
+     ["Because the ground was wet, I slipped and hurt my leg.","땅이 젖어서, 미끄러져 다리를 다쳤어요."],
+     ["I didn't bring any medicine or bandage, so I just rested for a while.","약이나 밴드를 안 가져와서, 잠깐 쉬었어요."],
+     ["{IH} My friend helped me and stayed with me until I felt better.","친구가 도와주고 나아질 때까지 함께 있어줬어요."],
+     ["It was painful, but still, we had fun.","아팠지만, 그래도, 재밌었어요."],
+     ["In the end, it became a memorable experience.","결국, 기억에 남는 경험이 됐어요."]]}
+   ]},
+
+  {ty:"경험", title:"운동을 즐기게 된 계기",
+   qen:"When did you first become interested in exercising? Why did you start? Has your physical condition changed?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, when I was 5 or 6, my dad taught me how to ride a bike.","음, 5살이나 6살 때, 아빠가 자전거 타는 법을 가르쳐 주셨어요."],
+     ["Back then, I wasn't very interested in biking.","그땐, 자전거에 별로 관심이 없었어요."],
+     ["{IH} But things changed, and now I really enjoy it.","하지만 상황이 바뀌어서, 지금은 정말 즐겨요."],
+     ["When I was in college, I went out a lot with my friends.","대학 때, 친구들과 자주 놀러 다녔어요."],
+     ["As a result, I gained 10 kilos! My clothes didn't fit.","그 결과, 10kg이나 쪘어요! 옷이 안 맞았어요."],
+     ["{IH} I was really shocked when I saw the number on the scale.","체중계 숫자를 봤을 때 정말 충격받았어요."],
+     ["I wanted to lose weight, so I started working out.","살을 빼고 싶어서, 운동을 시작했어요."],
+     ["At first, it was very difficult, and I felt drained.","처음엔, 정말 힘들었고, 진이 빠졌어요."],
+     ["But now, it's easier and I lost 5 kilos.","하지만 지금은, 더 쉬워졌고 5kg을 뺐어요."],
+     ["{IH} Also, my mood got much better. Working out changed my life.","또, 기분도 훨씬 좋아졌어요. 운동이 제 삶을 바꿨어요."]]}
+   ]},
+
+  {ty:"RP", title:"자전거 빌리기",
+   qen:"You want to rent a bike. Call the shop and ask 3 or 4 questions about renting a bike.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, I'd like to rent a bike.","안녕하세요, 자전거를 빌리고 싶어요."],
+     ["Actually, I need it for this Saturday. Maybe for six hours.","사실, 이번 토요일에 필요해요. 6시간 정도요."],
+     ["{IH} I'm planning to go to Han River Park with my friends.","친구들과 한강공원에 갈 계획이에요."],
+     ["By the way, how much is it per hour?","그런데, 시간당 얼마예요?"],
+     ["10 dollars? Oh, that's a bit expensive.","10달러요? 아, 좀 비싸네요."],
+     ["So, do you have any discounts for longer rentals?","그래서, 장기 대여 할인이 있나요?"],
+     ["{IH} Ok, it's still expensive, but I'll rent it because I really need it.","알겠어요, 그래도 비싸지만, 정말 필요하니 빌릴게요."]]}
+   ]},
+
+  {ty:"RP", title:"자전거가 품절인 상황 (대안 제시)",
+   qen:"The bike you wanted to rent is not available. Explain why you need it and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Oh, what? I can't rent the bike?","아, 뭐라고요? 자전거를 못 빌려요?"],
+     ["Actually, I really need it. I'm going to Han River Park this Saturday.","사실, 정말 필요해요. 이번 토요일에 한강공원에 가요."],
+     ["{IH} My friends are all counting on me. This is a big problem.","친구들이 다 저만 믿고 있어요. 이거 큰일이에요."],
+     ["Well, then is there a similar bike instead?","음, 그럼 대신 비슷한 자전거가 있나요?"],
+     ["Maybe a different model or style?","다른 모델이나 스타일은요?"],
+     ["Hmm, what about different colors?","음, 다른 색은 어때요?"],
+     ["I don't really like that color. It's too bright for me.","그 색은 별로예요. 너무 밝아요."],
+     ["{IH} Is there anything in a darker color? I prefer dark colors.","더 어두운 색은 없나요? 어두운 색을 선호해요."],
+     ["Then, what about on Sunday instead? Can I book a bike for Sunday?","그럼, 대신 일요일은 어때요? 일요일에 자전거 예약할 수 있나요?"],
+     ["OK, then I'll rent it for Sunday instead. Thank you.","알겠어요, 그럼 대신 일요일에 빌릴게요. 감사합니다."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 11 · 건강 ===================== */
+ {ch:"CH11", chTitle:"건강", sets:[
+
+  {ty:"묘사", title:"건강한 사람 묘사",
+   qen:"Tell me about a healthy person you know. What does he or she look like? What does he or she eat? How did you meet?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my bestie ___ is healthy.","음, 제 절친 ___는 건강해요."],
+     ["He never drinks, and he quit smoking a few years ago.","그는 술을 전혀 안 마시고, 몇 년 전에 담배를 끊었어요."],
+     ["{IH} I really respect him for that. It takes a lot of will power.","그 점을 정말 존경해요. 엄청난 의지가 필요하거든요."],
+     ["He works out everyday and eats many healthy foods.","매일 운동하고 건강식을 많이 먹어요."],
+     ["He usually goes to the gym early in the morning.","보통 아침 일찍 헬스장에 가요."],
+     ["Actually, he wakes up really early, around 5 or 6 a.m.","사실, 새벽 5시나 6시쯤 정말 일찍 일어나요."],
+     ["{IH} He has a healthy lifestyle, and he is always full of energy.","건강한 생활 습관이 있고, 항상 에너지가 넘쳐요."]]}
+   ]},
+
+  {ty:"묘사", title:"건강 유지 방법",
+   qen:"Is there anything special that you do to keep healthy? Tell me what you do and explain why you do it.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, as for me, I also try to stay healthy.","음, 저도 건강을 유지하려고 노력해요."],
+     ["I usually go in the evening, because it's too hot during the day.","보통 낮엔 너무 더워서 저녁에 가요."],
+     ["I usually go around 7 p.m. after work.","보통 퇴근 후 저녁 7시쯤 가요."],
+     ["I go for a jog 3 times a week.","일주일에 3번 조깅해요."],
+     ["Also, each time, I work out at least one hour.","또, 매번, 최소 한 시간은 운동해요."],
+     ["{IH} Working out has become a very important part of my day.","운동은 제 하루의 아주 중요한 부분이 됐어요."],
+     ["I think working out helps me stay fit.","운동이 건강을 유지하는 데 도움이 되는 것 같아요."],
+     ["Also, I never smoke. And I don't go out anymore.","또, 담배를 전혀 안 피워요. 그리고 더 이상 놀러 안 나가요."],
+     ["{IH} I also try to eat healthy food every day, like fruit and vegetables.","또 매일 과일과 채소 같은 건강식을 먹으려고 해요."],
+     ["I think healthy food is important too. Like vitamin C, D, omega-3.","건강식도 중요한 것 같아요. 비타민 C, D, 오메가-3 같은 거요."]]}
+   ]},
+
+  {ty:"묘사", title:"건강한 음식 (한국 음식)",
+   qen:"Tell me about healthy food you like to eat. Do you know how to make it? Please describe it in detail.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I think the most famous Korean dish is Bibimbap.","음, 가장 유명한 한국 음식은 비빔밥인 것 같아요."],
+     ["Actually, you can put many things into Bibimbap.","사실, 비빔밥엔 여러 가지를 넣을 수 있어요."],
+     ["There's rice, sprouts, cucumber, cabbage, lettuce, and red pepper paste.","밥, 콩나물, 오이, 양배추, 양상추, 고추장이 들어가요."],
+     ["{IH} It looks really colorful and it is very good for your health.","아주 알록달록하고 건강에 정말 좋아요."],
+     ["Honestly, I like Bibimbap because it is healthy and colorful.","솔직히, 비빔밥이 건강하고 알록달록해서 좋아해요."],
+     ["Also, it is easy to make.","또, 만들기 쉬워요."],
+     ["I put everything together and just mix it.","다 넣고 그냥 비비면 돼요."],
+     ["{IH} It takes less than 10 minutes. It is my go-to home meal.","만드는 데 10분도 안 걸려요. 제 단골 집밥이에요."],
+     ["It tasted great.","맛이 좋았어요."]]}
+   ]},
+
+  {ty:"경험", title:"건강에 문제가 생긴 경험 (코로나)",
+   qen:"Tell me about a health problem you or someone close to you had. What were the symptoms? What did you do to get over it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, last year, I got Covid-19, and it was a really hard time for me.","사실, 작년에 코로나에 걸렸는데, 정말 힘든 시기였어요."],
+     ["At first, I had a fever. Then I had a headache.","처음엔, 열이 났어요. 그다음 두통이 있었어요."],
+     ["Later, I also had a sore throat and a cough.","나중엔, 목도 아프고 기침도 났어요."],
+     ["I went to see the doctor and got tested.","병원에 가서 검사를 받았어요."],
+     ["The test result was positive, so I had to stay home and rest.","검사 결과가 양성이라, 집에서 쉬어야 했어요."],
+     ["{IH} I had to cancel all my plans and just stay in bed for a week.","모든 계획을 취소하고 일주일 동안 침대에만 있어야 했어요."],
+     ["I took the medicine, and drank a lot of water.","약을 먹고, 물을 많이 마셨어요."],
+     ["{IH} It was really boring and lonely, but I had no choice.","정말 지루하고 외로웠지만, 어쩔 수 없었어요."],
+     ["It was so painful.","정말 괴로웠어요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 12 · 여행·집에서 보내는 휴가 ===================== */
+ {ch:"CH12", chTitle:"여행 · 집에서 보내는 휴가", sets:[
+
+  {ty:"묘사", title:"최애 여행지 (부산)",
+   qen:"You enjoy traveling within your home country. What are your favorite places to visit and why do you like them?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, Busan is a popular city in Korea. My favorite city is Busan.","음, 부산은 한국에서 인기 있는 도시예요. 제 최애 도시는 부산이에요."],
+     ["Actually, Busan is famous for beaches and fresh seafood.","사실, 부산은 해변과 신선한 해산물로 유명해요."],
+     ["{IH} The sand is soft and the water is crystal clear.","모래가 부드럽고 물이 아주 맑아요."],
+     ["There's many seafood restaurants in Busan.","부산엔 해산물 식당이 많아요."],
+     ["{IH} You can try so many kinds of fish and other delicious food.","정말 다양한 생선과 맛있는 음식을 먹을 수 있어요."],
+     ["Also, there's a famous bridge and islands in Busan.","또, 부산엔 유명한 다리와 섬들이 있어요."],
+     ["At night, you can even see fireworks there.","밤엔, 불꽃놀이도 볼 수 있어요."],
+     ["The nature is beautiful, and the night view is amazing.","자연이 아름답고, 야경이 멋져요."]]}
+   ]},
+
+  {ty:"묘사", title:"여행 가면 하는 것",
+   qen:"What do you usually do when you travel to your favorite place?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, when I go to Busan, I try many things.","음, 부산에 가면, 여러 가지를 해봐요."],
+     ["I go to local markets and try local foods, such as Dwaeji-gukbap.","현지 시장에 가서 돼지국밥 같은 현지 음식을 먹어봐요."],
+     ["{IH} It is pork soup and it is so tasty. I highly recommend it.","돼지국밥은 정말 맛있어요. 강력 추천해요."],
+     ["I also swim, drink beer and just chill on the beach.","수영도 하고, 맥주도 마시고, 해변에서 그냥 쉬어요."],
+     ["You know, it's nice to just chill and listen to the waves.","있잖아요, 그냥 쉬면서 파도 소리를 듣는 게 좋아요."],
+     ["At night, I usually watch the fireworks there.","밤엔, 보통 거기서 불꽃놀이를 봐요."],
+     ["{IH} Busan is so beautiful, you should really go there, Ava!","부산은 정말 아름다워요, 꼭 가봐, Ava!"]]}
+   ]},
+
+  {ty:"묘사", title:"집에서 보내는 휴가 (하는 것)",
+   qen:"You prefer to stay at home during vacations. How do you spend your vacations at home? What do you usually do?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I prefer staycation at home.","음, 저는 집에서 보내는 휴가를 선호해요."],
+     ["During the vacation, I usually do house chores.","휴가 동안, 보통 집안일을 해요."],
+     ["Actually, I have to do many house chores, but I don't have time on weekdays.","사실, 집안일이 많은데, 평일엔 시간이 없어요."],
+     ["I do the dishes after eating, and I vacuum the floor.","먹고 나서 설거지하고, 바닥을 청소기로 밀어요."],
+     ["Also, I do the laundry and take out trash.","또, 빨래하고 쓰레기를 버려요."],
+     ["{IH} Then, I meet my family and friends.","그다음, 가족과 친구들을 만나요."],
+     ["We usually have a cook night or movie night.","보통 요리하는 밤이나 영화 보는 밤을 보내요."],
+     ["Sometimes, we might go for a walk or a workout.","가끔, 산책하거나 운동하러 가기도 해요."],
+     ["{IH} It's a great way to relax and have fun after a busy week.","바쁜 한 주 후에 쉬고 즐기기 좋은 방법이에요."]]}
+   ]},
+
+  {ty:"경험", title:"어릴 때 / 처음 해외여행 경험",
+   qen:"When did you first travel abroad? Where did you go and who did you go with?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I went to Japan with my family when I was little.","음, 어릴 때 가족과 일본에 갔어요."],
+     ["Actually, it was memorable because everything was new to me.","사실, 모든 게 새로워서 기억에 남았어요."],
+     ["{IH} I visited so many museums and famous spots.","정말 많은 박물관과 유명한 곳을 방문했어요."],
+     ["I had a chance to visit Tokyo Tower.","도쿄 타워를 방문할 기회가 있었어요."],
+     ["{IH} Seeing Tokyo Tower was amazing. I will never forget it.","도쿄 타워를 본 건 정말 멋졌어요. 절대 잊지 못할 거예요."],
+     ["Also, I tried many local foods like ramen.","또, 라멘 같은 현지 음식을 많이 먹어봤어요."],
+     ["Have you tried ramen? It's so tasty.","라멘 먹어봤어? 정말 맛있어."],
+     ["Trying ramen was my favorite.","라멘을 먹어본 게 제일 좋았어요."],
+     ["You should visit Tokyo if you go to Japan, Ava! It's stunning.","일본에 가면 도쿄를 꼭 가봐, Ava! 정말 멋져."]]}
+   ]},
+
+  {ty:"경험", title:"집에서 보낸 최근 휴가",
+   qen:"Tell me about how you spent your most recent vacation at home. What did you do?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, during my last vacation, I just chilled.","음, 지난 휴가 때, 그냥 쉬었어요."],
+     ["I did house chores, like doing the dishes, vacuuming the floor.","설거지, 바닥 청소 같은 집안일을 했어요."],
+     ["Then, I watched my favorite movie on Netflix.","그다음, 넷플릭스로 최애 영화를 봤어요."],
+     ["{IH} And I slept the whole day. I stayed in bed all day.","그리고 하루 종일 잤어요. 온종일 침대에 있었어요."],
+     ["I was so tired and just needed to rest.","너무 피곤해서 그냥 쉬어야 했어요."],
+     ["{IH} It was a really chill vacation and I really needed it.","정말 여유로운 휴가였고 꼭 필요했어요."]]}
+   ]},
+
+  {ty:"경험", title:"휴가 중 문제가 생긴 경험 (에어컨 고장)",
+   qen:"You faced a problem while on vacation. What kind of situation was it? What happened? How did you handle it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, it was last weekend.","음, 지난 주말이었어요."],
+     ["Actually, on my last vacation, the air conditioner suddenly stopped working.","사실, 지난 휴가 때, 에어컨이 갑자기 작동을 멈췄어요."],
+     ["You know, summer in Korea is really hot and sticky.","있잖아요, 한국의 여름은 정말 덥고 끈적해요."],
+     ["{IH} It was so hot that I couldn't breathe. I really panicked.","너무 더워서 숨을 못 쉴 정도였어요. 정말 당황했어요."],
+     ["So I went to my friend's home and spent my vacation there.","그래서 친구 집에 가서 거기서 휴가를 보냈어요."],
+     ["{IH} But still, it was fun to spend vacation at my friend's home.","그래도, 친구 집에서 휴가 보내는 게 재밌었어요."]]}
+   ]},
+
+  {ty:"경험", title:"기억에 남는 집 휴가 (무비 나이트)",
+   qen:"Tell me about an unusual or unexpected experience you had during a vacation you spent at home.",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, my memorable experience from childhood was a long time ago.","사실, 어린 시절 기억에 남는 경험은 오래전이었어요."],
+     ["We had a cozy movie night.","우리는 아늑한 영화 보는 밤을 보냈어요."],
+     ["So, we moved the furniture and made a mini theater.","그래서, 가구를 옮겨 미니 극장을 만들었어요."],
+     ["{IH} We had many snacks, like popcorn, chips and soda.","팝콘, 칩, 탄산음료 같은 간식을 많이 먹었어요."],
+     ["I could see my favorite movie, which was ___.","제 최애 영화를 볼 수 있었는데, ___였어요."],
+     ["{IH} It was such a bonding experience. I still remember it clearly.","정말 유대감을 느낀 경험이었어요. 아직도 또렷이 기억나요."]]}
+   ]},
+
+  {ty:"비교", title:"여행 과거 vs 현재 비교",
+   qen:"How is going for a trip different between nowadays and the past? What has changed?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, flight tickets were expensive in the past.","음, 예전엔 항공권이 비쌌어요."],
+     ["Actually, a flight to Paris was 5000 dollars 20 years ago. That was a lot!","사실, 20년 전엔 파리행 항공권이 5000달러였어요. 엄청났죠!"],
+     ["{IH} Most people could not afford to travel abroad back then.","그땐 대부분 해외여행을 할 형편이 안 됐어요."],
+     ["But now, flight tickets are much cheaper.","하지만 지금은, 항공권이 훨씬 저렴해요."],
+     ["A flight to Paris is only 1000 dollars today.","오늘날 파리행은 1000달러밖에 안 해요."],
+     ["{IH} There are many low-cost flights, so anyone can travel easily.","저가 항공이 많아서, 누구나 쉽게 여행할 수 있어요."],
+     ["Also, we can book flights and hotels on a mobile app.","또, 모바일 앱으로 항공권과 호텔을 예약할 수 있어요."],
+     ["It's really convenient, and we can save a lot of time.","정말 편리하고, 시간을 많이 아낄 수 있어요."],
+     ["You can book everything with just a few clicks!","클릭 몇 번으로 다 예약할 수 있어요!"]]}
+   ]},
+
+  {ty:"RP", title:"여행사 문의하기",
+   qen:"You are planning a trip. Call a travel agency and ask 3 or 4 questions about the trip.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, is this ___ travel agency?","안녕하세요, 거기 ___ 여행사인가요?"],
+     ["Actually, I'm planning a trip and need some information.","사실, 여행을 계획 중이라 정보가 좀 필요해요."],
+     ["I'd like to go to ___ next month.","다음 달에 ___에 가고 싶어요."],
+     ["How much is it per person?","1인당 얼마예요?"],
+     ["Hmm, it's expensive. What about a cheaper package?","음, 비싸네요. 더 저렴한 패키지는 어때요?"],
+     ["{IH} Is there any promotion now? Or any special deal?","지금 프로모션 있나요? 아니면 특별 할인은요?"],
+     ["By the way, does it include a pick-up service?","그런데, 픽업 서비스가 포함되나요?"],
+     ["Ok, that's good.","네, 좋네요."],
+     ["{IH} One more thing, what is included in the package?","한 가지 더, 패키지에 뭐가 포함되나요?"],
+     ["Thank you.","감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"여행 상품 이용 불가 (친구에게 전달)",
+   qen:"The travel product you booked is no longer available. Call your friend, explain, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hey, I have some bad news.","야, 안 좋은 소식이 있어."],
+     ["Actually, I called the travel agency, and we cannot book the flight.","사실, 여행사에 전화했는데, 항공편을 예약할 수 없대."],
+     ["{IH} I was really shocked. I did not expect this at all.","정말 충격받았어. 전혀 예상 못 했어."],
+     ["They said the tickets are sold out.","표가 매진됐대."],
+     ["What about next Friday? You're not free? Hmm. OK.","다음 주 금요일은 어때? 시간 안 돼? 음. 알겠어."],
+     ["{IH} Don't worry, I have another idea. Let me think.","걱정 마, 다른 생각이 있어. 생각해볼게."],
+     ["What about different countries or cities?","다른 나라나 도시는 어때?"],
+     ["Do you like sushi? I heard that Osaka is beautiful, too.","너 초밥 좋아해? 오사카도 아름답다고 들었어."],
+     ["It's not too far, and the food there is amazing too!","너무 멀지 않고, 거기 음식도 정말 맛있어!"],
+     ["Let's go there. What do you think?","거기 가자. 어떻게 생각해?"]]}
+   ]},
+
+  {ty:"RP", title:"여행을 못 가게 된 상황 (친구 · 여행사)",
+   qen:"You can't go on the trip. Call your friend and the travel agency, explain why, and give 2 or 3 suggestions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["(친구에게) Hey, ___. What's up?","(친구에게) 야, ___. 잘 지내?"],
+     ["(여행사에) Hello, is this ___ travel agency?","(여행사에) 안녕하세요, 거기 ___ 여행사인가요?"],
+     ["Actually, I'm really sorry, but I think we should change the trip.","사실, 정말 미안한데, 여행을 바꿔야 할 것 같아요."],
+     ["I don't feel well.","몸이 안 좋아요."],
+     ["I have a fever and a bad headache.","열이 나고 머리가 너무 아파요."],
+     ["{IH} I went to see the doctor, and they told me to rest at home.","병원에 갔더니, 집에서 쉬라고 했어요."],
+     ["I think it is Covid, so I'm going to see the doctor now.","코로나인 것 같아서, 지금 병원에 가려고요."],
+     ["I don't think I can go. I'm really sorry.","못 갈 것 같아요. 정말 죄송해요."],
+     ["{IH} Can we change the trip to next time? Maybe next month?","여행을 다음으로 바꿀 수 있을까요? 다음 달쯤?"],
+     ["I'll pay the change fee.","변경 수수료는 제가 낼게요."],
+     ["(친구에게) I'll buy you lunch. I know a great sushi restaurant.","(친구에게) 점심 살게. 좋은 초밥집 알아."],
+     ["Let's go there. I'm really sorry again.","거기 가자. 다시 한번 정말 미안해."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 13 · 호텔 ===================== */
+ {ch:"CH13", chTitle:"호텔", sets:[
+
+  {ty:"묘사", title:"호텔 장소 묘사 (위치 / 시설)",
+   qen:"Tell me about the hotels in your country. Where are they usually located? What do they have?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, hotels are in big cities or touristic areas like Jeju Island in Korea.","음, 호텔은 한국의 제주도 같은 큰 도시나 관광지에 있어요."],
+     ["Also, there are many hotels around airports and train stations.","또, 공항이나 기차역 근처에 호텔이 많아요."],
+     ["{IH} They are really fancy and stunning. The rooms are very comfortable.","정말 고급스럽고 멋져요. 객실이 아주 편안해요."],
+     ["Inside the hotels, there are many amenities.","호텔 안엔 편의시설이 많아요."],
+     ["{IH} For example, there's a pool, gym, restaurant, bar, spa, a spacious lobby, and free Wi-Fi.","예를 들어, 수영장, 헬스장, 레스토랑, 바, 스파, 넓은 로비, 무료 와이파이가 있어요."]]}
+   ]},
+
+  {ty:"묘사", title:"호텔 루틴 묘사",
+   qen:"What do you usually do when you arrive at a hotel? Describe the steps you take when you stay at a hotel.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, when I go to the hotel, I usually stay in bed and just chill.","음, 호텔에 가면, 보통 침대에 누워 그냥 쉬어요."],
+     ["First, I check in in the lobby.","먼저, 로비에서 체크인해요."],
+     ["Then, I unpack my stuff.","그다음, 짐을 풀어요."],
+     ["{IH} If the hotel has a gym, I always go and work out.","호텔에 헬스장이 있으면, 항상 가서 운동해요."],
+     ["Also, I go to the swimming pool.","또, 수영장에 가요."],
+     ["{IH} That's one of the main reasons why I love going to the hotel.","그게 제가 호텔 가는 걸 좋아하는 주된 이유 중 하나예요."]]}
+   ]},
+
+  {ty:"경험", title:"최근 호텔에 머문 경험",
+   qen:"When was your most recent stay at a hotel? Which hotel did you stay at? What did you do there?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, my recent experience at a hotel was last month.","음, 최근 호텔 경험은 지난달이었어요."],
+     ["Actually, I went on vacation with my friends.","사실, 친구들과 휴가를 갔어요."],
+     ["We went to Jeju Island, it was so hot and sticky.","제주도에 갔는데, 정말 덥고 끈적했어요."],
+     ["We swam in the pool, and had dinner at a hotel restaurant.","수영장에서 수영하고, 호텔 레스토랑에서 저녁을 먹었어요."],
+     ["{IH} The food was amazing. It was one of the best meals I have had.","음식이 정말 맛있었어요. 제가 먹어본 최고의 식사 중 하나였어요."],
+     ["There was a TV in the room, so we watched Netflix.","방에 TV가 있어서, 넷플릭스를 봤어요."],
+     ["We watched an action movie, it's my favorite movie.","액션 영화를 봤는데, 제 최애 영화예요."],
+     ["{IH} It was so chill and I want to go back there again.","정말 여유로웠고 다시 가고 싶어요."]]}
+   ]},
+
+  {ty:"RP", title:"호텔 예약하기",
+   qen:"You want to book a hotel. Call the hotel and ask 3 or 4 questions about staying there.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, is this ___ hotel?","안녕하세요, 거기 ___ 호텔인가요?"],
+     ["Actually, I'm planning to stay next month, maybe for a week.","사실, 다음 달에 묵을 계획이에요, 일주일 정도요."],
+     ["How much is it per night?","1박에 얼마예요?"],
+     ["Hmm, it's expensive. What about a standard room?","음, 비싸네요. 스탠다드룸은 어때요?"],
+     ["{IH} Is there any promotion now? Or an early booking discount?","지금 프로모션 있나요? 아니면 조기 예약 할인은요?"],
+     ["Ok, nice.","네, 좋네요."],
+     ["Also, is there a pick-up service from the airport?","또, 공항에서 픽업 서비스가 있나요?"],
+     ["Ok, that's good.","네, 좋네요."],
+     ["{IH} One more thing, is breakfast included in the price?","한 가지 더, 가격에 조식이 포함되나요?"],
+     ["Thank you.","감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"방에 문제가 생긴 상황 (에어컨)",
+   qen:"There's a problem in your hotel room. Call the front desk, explain the problem, and ask them to solve it.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, this is room 505.","안녕하세요, 505호입니다."],
+     ["Actually, there's a problem here.","사실, 여기 문제가 있어요."],
+     ["The air conditioner suddenly stopped working.","에어컨이 갑자기 작동을 멈췄어요."],
+     ["So, I tried turning it on and off, but it didn't work.","그래서, 켰다 껐다 해봤는데, 안 됐어요."],
+     ["{IH} It is really hot in here. I cannot sleep like this.","여기 너무 더워요. 이래선 잘 수가 없어요."],
+     ["Could you please send someone to fix it?","고칠 사람을 좀 보내주실 수 있나요?"],
+     ["{IH} It's too hot. How long should I wait?","너무 더워요. 얼마나 기다려야 하나요?"],
+     ["5 minutes? OK, thank you.","5분이요? 네, 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"주변 할 것 물어보기",
+   qen:"You are staying at a hotel. Ask the front desk 3 or 4 questions about things to do around the hotel.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, I'm staying at this hotel.","안녕하세요, 이 호텔에 묵고 있어요."],
+     ["Actually, can I ask you a few questions?","사실, 몇 가지 물어봐도 될까요?"],
+     ["{IH} Can you suggest some attractions around here?","이 근처 명소 좀 추천해 주실 수 있나요?"],
+     ["Oh, I love museums, thanks.","아, 박물관 좋아해요, 감사해요."],
+     ["Is there a park around here?","이 근처에 공원이 있나요?"],
+     ["Also, is there a seafood restaurant around here? I'm craving seafood.","또, 이 근처에 해산물 식당이 있나요? 해산물이 땡겨요."],
+     ["{IH} I would really love to try some local seafood tonight.","오늘 밤 현지 해산물을 꼭 먹어보고 싶어요."],
+     ["Ok, thank you!","네, 감사합니다!"]]}
+   ]},
+
+  {ty:"RP", title:"분실물 찾기 (호텔 → 택시회사)",
+   qen:"You left something behind. Call to find your lost item, explain the situation, and ask 3 or 4 questions.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, umm, can you please help?","안녕하세요, 음, 좀 도와주실 수 있나요?"],
+     ["Actually, I left my bag in your taxi.","사실, 택시에 제 가방을 두고 내렸어요."],
+     ["It's a white backpack, and there is a small plush teddy on it.","흰색 배낭인데, 작은 곰인형이 달려 있어요."],
+     ["{IH} I really need it back. There are important things inside.","정말 돌려받아야 해요. 안에 중요한 게 있어요."],
+     ["Where should I go to get my bag?","가방을 받으려면 어디로 가야 하나요?"],
+     ["Can you give me the address? Oh, OK.","주소를 알려주실 수 있나요? 아, 네."],
+     ["When are your business hours?","영업시간이 어떻게 되나요?"],
+     ["{IH} Can I visit at 6 p.m. later today? That's when I'm free.","오늘 저녁 6시에 가도 될까요? 그때 시간이 돼요."],
+     ["Also, should I bring my ID card to get my bag?","또, 가방을 받으려면 신분증을 가져가야 하나요?"],
+     ["Ok, Thank you.","네, 감사합니다."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 14 · 교통 ===================== */
+ {ch:"CH14", chTitle:"교통", sets:[
+
+  {ty:"묘사", title:"우리나라 교통수단",
+   qen:"What is public transportation like in your country? Which type do you prefer to use and why?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, as for transportation, there are buses, trains, and subways in Korea.","음, 교통수단으로는, 한국엔 버스, 기차, 지하철이 있어요."],
+     ["{IH} There are more than 10 lines on the subway.","지하철엔 10개 넘는 노선이 있어요."],
+     ["Also, buses are modern and spacious, and there's a special lane for buses.","또, 버스는 현대적이고 넓고, 버스 전용 차선이 있어요."],
+     ["There's an air conditioner and free Wi-Fi in buses and subways.","버스와 지하철엔 에어컨과 무료 와이파이가 있어요."],
+     ["{IH} You can also buy a monthly pass for buses and subways in Korea.","한국에선 버스와 지하철 월 정기권도 살 수 있어요."]]}
+   ]},
+
+  {ty:"묘사", title:"내가 이용하는 교통수단 (지하철)",
+   qen:"Which type of transportation do you use the most and why?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I take the subway everyday.","음, 저는 매일 지하철을 타요."],
+     ["Actually, there's a subway station in my neighborhood called ___ station.","사실, 우리 동네에 ___역이라는 지하철역이 있어요."],
+     ["It's line number 5.","5호선이에요."],
+     ["{IH} The subway is fast and punctual. They always arrive on time.","지하철은 빠르고 정확해요. 항상 제시간에 와요."],
+     ["There are special seats for the pregnant on each train.","각 열차엔 임산부 배려석이 있어요."],
+     ["Also, there are coffee shops and convenience stores in the subway stations.","또, 지하철역엔 커피숍과 편의점이 있어요."],
+     ["{IH} I can transfer from a subway to a bus, and it is free.","지하철에서 버스로 환승할 수 있는데, 무료예요."],
+     ["Also, the subway is really clean and comfy.","또, 지하철은 정말 깨끗하고 편해요."]]}
+   ]},
+
+  {ty:"경험", title:"문제가 생긴 경험 (지하철에서 핸드폰)",
+   qen:"Have you ever had any problems while taking public transportation? Please describe your experience in detail.",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I was on the subway on my way to school.","사실, 학교 가는 길에 지하철을 타고 있었어요."],
+     ["So, I was holding my phone and it was so crowded.","그래서, 핸드폰을 들고 있었는데 너무 붐볐어요."],
+     ["Then, someone pushed me and I dropped my phone.","그때, 누가 저를 밀어서 핸드폰을 떨어뜨렸어요."],
+     ["{IH} The screen cracked but I couldn't see who pushed me.","화면이 깨졌는데 누가 밀었는지 못 봤어요."],
+     ["I couldn't fix it because the fixing cost was too expensive.","수리비가 너무 비싸서 고치지 못했어요."],
+     ["{IH} So, I just use this phone. It's still cracked.","그래서, 그냥 이 핸드폰을 써요. 아직도 깨져 있어요."]]}
+   ]},
+
+  {ty:"비교", title:"주중 vs 주말 교통 비교",
+   qen:"What do people take on weekdays? How about on the weekends? What do people use when they travel to the countryside?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, on weekdays, most people take the subway to get to work or school.","음, 평일엔, 대부분 출근이나 등교하러 지하철을 타요."],
+     ["{IH} The subway is fast, and there are many stations in the city.","지하철은 빠르고, 도시에 역이 많아요."],
+     ["However, on weekends, people often travel by bus or car.","그런데, 주말엔, 사람들이 버스나 차로 이동하는 경우가 많아요."],
+     ["People also take the train when they go to other cities.","다른 도시에 갈 땐 기차도 타요."],
+     ["{IH} When people travel to the countryside, some people rent a car.","시골로 갈 땐, 어떤 사람들은 차를 빌려요."]]}
+   ]},
+
+  {ty:"비교", title:"교통수단 과거 vs 현재 비교",
+   qen:"How is transportation different now from the past? What has changed?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, there are many kinds of transportation now, such as buses, subways, trains, taxis, public bikes, and electric scooters.","음, 지금은 버스, 지하철, 기차, 택시, 공공자전거, 전동킥보드 같은 교통수단이 많아요."],
+     ["Actually, in the past, there were only buses and subways.","사실, 예전엔 버스와 지하철밖에 없었어요."],
+     ["{IH} And subways were only in Seoul. Now, many cities have subways.","그리고 지하철은 서울에만 있었어요. 지금은 많은 도시에 지하철이 있어요."],
+     ["Also, subway fees were cheap. It was about 1 dollar.","또, 지하철 요금이 쌌어요. 1달러 정도였어요."],
+     ["{IH} But now, it is almost 2 dollars. The price has gone up a lot.","하지만 지금은, 거의 2달러예요. 가격이 많이 올랐어요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 15 · 인터넷·핸드폰 ===================== */
+ {ch:"CH15", chTitle:"인터넷 · 핸드폰", sets:[
+
+  {ty:"묘사", title:"언제 쓰는지 (기본 경향)",
+   qen:"Do you use your smartphone often? How frequently do you use it? What do you usually do on it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I use my smartphone almost all the time.","음, 저는 거의 항상 스마트폰을 써요."],
+     ["When I study, I search for information.","공부할 땐, 정보를 검색해요."],
+     ["Also, when I travel, I use map apps and translation apps.","또, 여행할 땐, 지도 앱과 번역 앱을 써요."],
+     ["I listen to music and watch videos on Youtube.","유튜브로 음악을 듣고 영상을 봐요."],
+     ["{IH} I go on social media and text my friends every day.","매일 SNS를 하고 친구들에게 문자해요."],
+     ["{IH} Honestly, I don't think I can live without my smartphone.","솔직히, 스마트폰 없인 못 살 것 같아요."]]}
+   ]},
+
+  {ty:"묘사", title:"기능 묘사 (네이버 / 쇼핑 / 배달)",
+   qen:"Tell me about a website you usually visit. What services does it offer, and what can you do on it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I use my smartphone for many things.","음, 저는 스마트폰을 여러 가지로 써요."],
+     ["Actually, I visit a website called Naver a lot.","사실, 네이버라는 사이트를 자주 방문해요."],
+     ["I search for information or buy everything on Naver.","네이버에서 정보를 검색하거나 다 사요."],
+     ["{IH} I can buy clothes, daily needs like shampoo, or even order food!","옷, 샴푸 같은 생활용품, 심지어 음식도 주문할 수 있어요!"],
+     ["Also, I often order delivery food through apps like Baemin.","또, 배민 같은 앱으로 배달 음식을 자주 시켜요."],
+     ["The delivery arrives in about 30 minutes. It is so fast and convenient.","배달이 30분쯤이면 와요. 정말 빠르고 편리해요."],
+     ["Online payment is easy. I don't have to carry cash or cards anymore.","온라인 결제가 쉬워요. 더 이상 현금이나 카드를 들고 다닐 필요가 없어요."],
+     ["{IH} It makes my everyday life so much easier.","일상을 훨씬 더 편하게 만들어줘요."],
+     ["When I study English, I use dictionary or translation apps.","영어 공부할 땐, 사전이나 번역 앱을 써요."],
+     ["When I travel, the map and translation feature is very convenient.","여행할 땐, 지도와 번역 기능이 아주 편리해요."],
+     ["{IH} I can't imagine my daily life without it.","그게 없는 일상은 상상할 수 없어요."]]}
+   ]},
+
+  {ty:"경험", title:"문제가 생긴 경험 (온라인 시험 중 인터넷 끊김)",
+   qen:"Think about a problem you had while using the internet. What was the problem? How did you handle it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, when I was in college, I had to take an exam online.","사실, 대학 때, 온라인으로 시험을 봐야 했어요."],
+     ["You know, because of the pandemic, every exam was online.","있잖아요, 팬데믹 때문에, 모든 시험이 온라인이었어요."],
+     ["However, the internet stopped working.","그런데, 인터넷이 끊겼어요."],
+     ["{IH} The screen just turned black. I was so panicked.","화면이 그냥 까매졌어요. 정말 당황했어요."],
+     ["So, I messed up the exam and I contacted the professor.","그래서, 시험을 망쳤고 교수님께 연락했어요."],
+     ["Luckily, he gave me a second chance.","다행히, 한 번 더 기회를 주셨어요."],
+     ["{IH} So, I took the test again. It was a really stressful experience.","그래서, 시험을 다시 봤어요. 정말 스트레스 받는 경험이었어요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 16 · 패션·쇼핑 ===================== */
+ {ch:"CH16", chTitle:"패션 · 쇼핑", sets:[
+
+  {ty:"묘사", title:"우리나라 사람들이 입는 옷",
+   qen:"What kinds of clothes do people typically wear in your country? What do they wear at home vs at work?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, people wear comfy, casual and relaxed clothes at home.","음, 사람들은 집에서 편하고 캐주얼하고 여유로운 옷을 입어요."],
+     ["People wear pajamas, hoodies, sweatpants.","잠옷, 후드티, 트레이닝 바지를 입어요."],
+     ["{IH} It is all about being comfortable when you are at home.","집에 있을 땐 편한 게 최고예요."],
+     ["However, at work, people wear business attire.","그런데, 직장에선, 사람들이 비즈니스 정장을 입어요."],
+     ["There's usually dress codes like blouses or shirts.","보통 블라우스나 셔츠 같은 드레스 코드가 있어요."],
+     ["{IH} But some companies allow t-shirts and jeans these days.","하지만 요즘 어떤 회사는 티셔츠와 청바지를 허용해요."]]}
+   ]},
+
+  {ty:"경험", title:"쇼핑 중 문제가 생긴 경험 (품절)",
+   qen:"Tell me about a problem you had while shopping. What was the problem? How did you handle it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I went to a mall with my friends last weekend.","사실, 지난 주말에 친구들과 쇼핑몰에 갔어요."],
+     ["I wanted to buy a hoodie, but it was sold out.","후드티를 사고 싶었는데, 품절이었어요."],
+     ["{IH} I was disappointed, but later I found the hoodie online!","실망했는데, 나중에 그 후드티를 온라인에서 찾았어요!"],
+     ["So, I ordered it online, and I really like it.","그래서, 온라인으로 주문했고, 정말 마음에 들어요."],
+     ["{IH} I had to pay for shipping, but it was worth it.","배송비를 내야 했지만, 그만한 가치가 있었어요."]]}
+   ]},
+
+  {ty:"경험", title:"최근 쇼핑 경험",
+   qen:"Tell me about the last time you went shopping for clothes. What did you buy and who did you go with?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I recently bought summer clothes.","음, 최근에 여름옷을 샀어요."],
+     ["Actually, I went to a mall with my friends last weekend.","사실, 지난 주말에 친구들과 쇼핑몰에 갔어요."],
+     ["{IH} I bought shorts, and my friend bought a hoodie.","저는 반바지를 샀고, 친구는 후드티를 샀어요."],
+     ["I spent too much, I spent 200 dollars.","너무 많이 썼어요, 200달러를 썼어요."],
+     ["Now, I'm so broke.","이제, 완전 빈털터리예요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 17 · 미용실·은행 ===================== */
+ {ch:"CH17", chTitle:"미용실 · 은행", sets:[
+
+  {ty:"묘사", title:"미용실 장소 묘사",
+   qen:"Tell me about the hair salons in your country. Where are they usually located? Any unique services?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, hair salons are everywhere in Korea.","음, 한국엔 미용실이 어디에나 있어요."],
+     ["They are in city centers or in small towns.","도시 중심지나 작은 마을에 있어요."],
+     ["Also, they are in department stores, malls, and small towns too.","또, 백화점, 쇼핑몰, 작은 마을에도 있어요."],
+     ["{IH} Many salons have modern and fancy interior designs.","많은 미용실이 현대적이고 멋진 인테리어를 갖췄어요."],
+     ["{IH} They usually give customers free coffee or tea. It is very nice.","보통 손님에게 무료 커피나 차를 줘요. 정말 좋아요."]]}
+   ]},
+
+  {ty:"묘사", title:"은행 장소 묘사",
+   qen:"Tell me about the banks in your country. Where are they located? What are they like?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, banks are everywhere in Korea.","음, 한국엔 은행이 어디에나 있어요."],
+     ["Actually, they are in city centers or in small towns.","사실, 도시 중심지나 작은 마을에 있어요."],
+     ["{IH} Banks are open from 9 am to 4 pm, Monday to Friday.","은행은 월요일부터 금요일까지 오전 9시에서 오후 4시까지 열어요."],
+     ["They are closed on weekends and holidays.","주말과 공휴일엔 문을 닫아요."],
+     ["But ATMs are open 24/7.","하지만 ATM은 24시간 연중무휴로 이용 가능해요."],
+     ["{IH} Many banks also have ATMs outside the building. Very convenient.","많은 은행이 건물 밖에도 ATM이 있어요. 아주 편리해요."]]}
+   ]},
+
+  {ty:"묘사", title:"은행에서 하는 일",
+   qen:"Why do people go to the bank? Please give me as many details as possible.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I can do many things at a bank.","음, 은행에선 여러 가지를 할 수 있어요."],
+     ["I go to a bank to withdraw cash, check my balance, or deposit money.","현금을 인출하거나, 잔액을 확인하거나, 예금하러 은행에 가요."],
+     ["I can also open an account, apply for a loan, or transfer money.","계좌를 개설하거나, 대출을 신청하거나, 송금할 수도 있어요."],
+     ["{IH} But now, we can do many banking services online. It is so convenient.","하지만 지금은, 많은 은행 업무를 온라인으로 할 수 있어요. 정말 편리해요."]]}
+   ]},
+
+  {ty:"경험", title:"최근 미용실에서 한 머리",
+   qen:"When was your most recent visit to a hair salon? What services did you get?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I went to a hair salon last month.","사실, 지난달에 미용실에 갔어요."],
+     ["I got a haircut.","머리를 잘랐어요."],
+     ["Actually, I went to a famous hair salon in Korea.","사실, 한국의 유명한 미용실에 갔어요."],
+     ["I saw an actress on Netflix, and I loved her short hair.","넷플릭스에서 한 배우를 봤는데, 그녀의 짧은 머리가 정말 마음에 들었어요."],
+     ["{IH} It was expensive — I spent 100 dollars for a haircut!","비쌌어요 — 커트에 100달러를 썼어요!"],
+     ["{IH} Now, I'm so broke, but I really like my new hairstyle.","이제, 완전 빈털터리지만, 새 헤어스타일이 정말 마음에 들어요."]]}
+   ]},
+
+  {ty:"경험", title:"미용실에서 문제가 생긴 경험",
+   qen:"Tell me about a problem you had at a hair salon. What happened? How did you handle it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I went to a famous hair salon in Seoul last month.","사실, 지난달에 서울의 유명한 미용실에 갔어요."],
+     ["So, I got a haircut and a perm, but I didn't like it at all!","그래서, 머리를 자르고 파마했는데, 전혀 마음에 안 들었어요!"],
+     ["My hair was too short and curly.","머리가 너무 짧고 곱슬했어요."],
+     ["{IH} I was really upset and I didn't know what to do.","정말 속상했고 어떻게 해야 할지 몰랐어요."],
+     ["So, I asked for a refund.","그래서, 환불을 요청했어요."],
+     ["{IH} I got my money back, but I still don't like my hair.","환불은 받았지만, 여전히 머리가 마음에 안 들어요."]]}
+   ]},
+
+  {ty:"경험", title:"은행에서 문제가 생긴 경험 (ATM)",
+   qen:"Have you ever experienced any problems at a bank? What problem did you face, and how did you deal with it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, I was using an ATM to withdraw money.","사실, ATM으로 돈을 인출하고 있었어요."],
+     ["So, it was late, like 11 p.m., so the bank was closed.","그래서, 밤 11시쯤 늦은 시간이라, 은행이 문을 닫았어요."],
+     ["I was trying to withdraw cash, but my card was stuck in the machine.","현금을 인출하려는데, 카드가 기계에 끼었어요."],
+     ["{IH} I really panicked. I didn't know what to do.","정말 당황했어요. 어떻게 해야 할지 몰랐어요."],
+     ["I hit and kicked the machine, and it worked.","기계를 치고 발로 찼더니, 작동했어요."],
+     ["The card came out, and I could get my cash.","카드가 나왔고, 현금을 받을 수 있었어요."],
+     ["{IH} It was crazy. I will never forget that night.","정말 황당했어요. 그날 밤을 절대 잊지 못할 거예요."]]}
+   ]},
+
+  {ty:"RP", title:"미용실 - 머리 하러 가기",
+   qen:"You are at a hair salon. Ask the hairdresser 3 or 4 questions about the service you want.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Hello, I'd like to get a haircut and a perm, please.","안녕하세요, 커트랑 파마하고 싶어요."],
+     ["I want short hair with side bangs.","옆머리 있는 짧은 머리를 원해요."],
+     ["{IH} I want something light and easy to manage.","가볍고 관리하기 쉬운 걸 원해요."],
+     ["How much is it for a haircut and a perm?","커트랑 파마는 얼마예요?"],
+     ["200 dollars? OK.","200달러요? 알겠어요."],
+     ["{IH} How long will it take? 3 hours? Ok, nice.","얼마나 걸려요? 3시간이요? 네, 좋아요."],
+     ["I'll go with the digital perm, please. Thank you.","디지털 파마로 할게요. 감사합니다."]]}
+   ]},
+
+  {ty:"RP", title:"미용실 - 머리 망해서 환불 요청하기",
+   qen:"You are not happy with your hair. Explain the situation to the hairdresser and ask for a refund.",
+   rp:true,
+   blocks:[
+    {label:"대화", s:[
+     ["Well, excuse me, to be honest, I don't like my hair.","음, 저기요, 솔직히, 머리가 마음에 안 들어요."],
+     ["It's not what I wanted. It's too short and curly.","제가 원한 게 아니에요. 너무 짧고 곱슬해요."],
+     ["{IH} I am really disappointed. I told you what I wanted.","정말 실망했어요. 제가 원하는 걸 말씀드렸잖아요."],
+     ["I'd like to get a refund.","환불받고 싶어요."],
+     ["Actually, I'm going on a blind date this Saturday.","사실, 이번 토요일에 소개팅이 있어요."],
+     ["I cannot go with this hair! I need to get a refund.","이 머리로는 못 가요! 환불받아야 해요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 18 · 약속·모임 ===================== */
+ {ch:"CH18", chTitle:"약속 · 모임", sets:[
+
+  {ty:"묘사", title:"누구 만나고 뭐 하는지 (기본 경향)",
+   qen:"What kinds of appointments do you usually make with people? Who do you make them with?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, I usually meet my friends on Friday or weekends.","음, 보통 금요일이나 주말에 친구들을 만나요."],
+     ["They are my old high school friends.","오랜 고등학교 친구들이에요."],
+     ["{IH} We always have a great time together when we meet.","만나면 항상 즐거운 시간을 보내요."],
+     ["We usually grab a bite, then catch up. Next, we go out to a karaoke.","보통 간단히 먹고, 근황 토크를 해요. 다음엔, 노래방에 가요."]]}
+   ]},
+
+  {ty:"묘사", title:"약속 잡는 과정",
+   qen:"How do you usually make plans to meet your friends? Describe the steps.",
+   blocks:[
+    {label:"답변", s:[
+     ["When I meet my friends, I usually book everything because I'm organized.","친구들을 만날 땐, 제가 계획적이라 보통 다 예약해요."],
+     ["Well, we usually text each other in our group chat.","음, 보통 단톡방에서 서로 문자해요."],
+     ["Actually, I send my friends some restaurants I want to try.","사실, 가보고 싶은 식당을 친구들에게 보내요."],
+     ["We are all foodies.","우리 다 먹는 걸 좋아하는 사람들이에요."],
+     ["{IH} We talk about the menu and choose the restaurant together.","메뉴에 대해 얘기하고 함께 식당을 골라요."],
+     ["Then, we decide on the date and time.","그다음, 날짜와 시간을 정해요."],
+     ["{IH} I book a table on a mobile app. It is very easy.","모바일 앱으로 자리를 예약해요. 아주 쉬워요."]]}
+   ]},
+
+  {ty:"경험", title:"친구와의 약속을 취소한 경험",
+   qen:"Tell me about a particularly memorable appointment with your friends. What made it unforgettable?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, last weekend, I was planning to meet my friends.","사실, 지난 주말에 친구들을 만나려고 했어요."],
+     ["We wanted to go on a picnic.","소풍을 가고 싶었어요."],
+     ["However, I didn't feel well.","그런데, 몸이 안 좋았어요."],
+     ["I had a fever and a headache. I got a cold.","열이 나고 머리가 아팠어요. 감기에 걸렸어요."],
+     ["{IH} So, I couldn't hang out with my friends.","그래서, 친구들과 놀 수 없었어요."],
+     ["{IH} I texted them and said sorry. I felt really bad.","친구들에게 문자해서 미안하다고 했어요. 정말 미안했어요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 19 · 날씨·지형 ===================== */
+ {ch:"CH19", chTitle:"날씨 · 지형", sets:[
+
+  {ty:"묘사", title:"최근 날씨",
+   qen:"Tell me what the weather has been like these days. Provide as many details as possible.",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, it is autumn in Korea, so the weather is sunny and warm.","음, 한국은 가을이라, 날씨가 맑고 따뜻해요."],
+     ["Actually, it is warm during the daytime, but it's cool in the evening.","사실, 낮엔 따뜻한데, 저녁엔 쌀쌀해요."],
+     ["{IH} The temperatures are around 20 degrees Celsius.","기온은 섭씨 20도 정도예요."],
+     ["Also, maple trees are really beautiful now.","또, 지금 단풍나무가 정말 아름다워요."],
+     ["{IH} Sometimes it is rainy, so it is a bit chilly. I love this season.","가끔 비가 와서, 좀 쌀쌀해요. 저는 이 계절을 정말 좋아해요."]]}
+   ]},
+
+  {ty:"묘사", title:"우리나라 계절",
+   qen:"How many seasons are there in your country? How are they different? What is the weather like in each?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, there are 4 seasons in Korea: spring, summer, autumn and winter.","음, 한국엔 봄, 여름, 가을, 겨울 4계절이 있어요."],
+     ["Spring is sunny and warm.","봄은 맑고 따뜻해요."],
+     ["Actually, summer is hot and very sticky.","사실, 여름은 덥고 아주 끈적해요."],
+     ["The temperatures are over 40 degrees Celsius.","기온이 섭씨 40도가 넘어요."],
+     ["{IH} It is so hot that it is sometimes hard to go outside.","너무 더워서 가끔 밖에 나가기 힘들어요."],
+     ["Autumn is sunny and warm too. It's perfect for hiking.","가을도 맑고 따뜻해요. 하이킹하기 완벽해요."],
+     ["Winter is freezing. The temperatures are minus 20 degrees Celsius.","겨울은 너무 추워요. 기온이 영하 20도예요."],
+     ["{IH} That is why Koreans are very fashionable. We need so many clothes!","그래서 한국인들이 패션 감각이 좋아요. 옷이 정말 많이 필요하거든요!"]]}
+   ]},
+
+  {ty:"묘사", title:"우리나라 지형",
+   qen:"Tell me about the geographic features of your country. What makes them different from other countries?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, there are many seas and mountains in Korea.","음, 한국엔 바다와 산이 많아요."],
+     ["Korea is a peninsula, so there are 3 seas.","한국은 반도라서, 3면이 바다예요."],
+     ["{IH} Water activities such as swimming and surfing are popular.","수영과 서핑 같은 수상 스포츠가 인기예요."],
+     ["Also, hiking is popular because there are many famous mountains.","또, 유명한 산이 많아서 하이킹이 인기예요."],
+     ["There are many great spots for hiking, and the scenery is amazing.","하이킹하기 좋은 곳이 많고, 경치가 멋져요."],
+     ["{IH} You should visit Hallasan in Jeju Island, Ava! It's so beautiful.","제주도의 한라산에 꼭 가봐, Ava! 정말 아름다워."]]}
+   ]},
+
+  {ty:"묘사", title:"인기 있는 야외활동",
+   qen:"What kind of outdoor activities do people in your country do? Why do they like them?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, hiking is really popular in Korea.","음, 한국에선 하이킹이 정말 인기예요."],
+     ["Actually, you can find many mountains and hiking trails even in Seoul!","사실, 서울에서도 산과 등산로를 많이 찾을 수 있어요!"],
+     ["{IH} A lot of people enjoy hiking on weekends.","많은 사람들이 주말에 하이킹을 즐겨요."],
+     ["Also, camping is very popular these days.","또, 요즘 캠핑이 아주 인기예요."],
+     ["People like to relax in nature.","사람들은 자연 속에서 쉬는 걸 좋아해요."],
+     ["{IH} When camping, people usually hike and then barbecue at night.","캠핑할 땐, 보통 하이킹하고 밤에 바비큐를 해요."]]}
+   ]},
+
+  {ty:"경험", title:"날씨 때문에 기억에 남는 경험 (갑자기 비)",
+   qen:"Have you ever experienced something memorable because of the weather? Explain what happened and why it was memorable.",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, a memorable experience happened a few months ago.","사실, 몇 달 전에 기억에 남는 일이 있었어요."],
+     ["So, I was outside with my friends, and it suddenly started to rain.","그래서, 친구들과 밖에 있었는데, 갑자기 비가 오기 시작했어요."],
+     ["You know, we didn't have umbrellas, so we ran to a nearby coffee shop.","있잖아요, 우산이 없어서, 근처 커피숍으로 뛰어갔어요."],
+     ["{IH} We were very wet when we got there, but we laughed a lot.","도착했을 땐 흠뻑 젖었지만, 많이 웃었어요."],
+     ["We ordered hot drinks and watched the rain.","따뜻한 음료를 시키고 비를 봤어요."],
+     ["It was cold, but we had fun memories.","추웠지만, 즐거운 추억이 됐어요."],
+     ["{IH} I had a really relaxing time with friends.","친구들과 정말 편안한 시간을 보냈어요."]]}
+   ]},
+
+  {ty:"경험", title:"기억에 남는 야외활동 (산책 중 옛 인연)",
+   qen:"Describe the most memorable experience you have had outdoors. What is a beautiful place you have been to?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, a memorable outdoor experience happened not long ago.","사실, 얼마 전에 기억에 남는 야외 경험이 있었어요."],
+     ["So, I was taking a walk last weekend.","그래서, 지난 주말에 산책을 했어요."],
+     ["I went for a walk to clear my head.","머리를 식히려고 산책하러 갔어요."],
+     ["When I walked outside, I saw someone. Guess who?","밖에서 걷는데, 누군가를 봤어요. 누군지 맞혀봐요?"],
+     ["My ex was walking toward me.","제 옛 인연이 저를 향해 걸어오고 있었어요."],
+     ["{IH} I stopped walking. I did not know what to do.","걸음을 멈췄어요. 어떻게 해야 할지 몰랐어요."],
+     ["I wasn't sure if I should say hello or just keep walking.","인사를 해야 할지 그냥 지나가야 할지 몰랐어요."],
+     ["{IH} But I took a breath and decided to say hello.","하지만 숨을 한번 고르고 인사하기로 했어요."],
+     ["In the end, we stopped and had a talk.","결국, 멈춰서 이야기를 나눴어요."],
+     ["It was weird and awkward. But it was nice to have a talk.","어색하고 묘했어요. 하지만 이야기를 나눠서 좋았어요."]]}
+   ]},
+
+  {ty:"비교", title:"날씨 과거 vs 현재 비교",
+   qen:"How is the weather different now from the past? What has changed?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, in the past, like 10 years ago, it was not this hot in summer.","음, 예전엔, 한 10년 전엔, 여름이 이렇게 덥지 않았어요."],
+     ["Back then, it was warm, but not too hot.","그땐, 따뜻했지만, 너무 덥진 않았어요."],
+     ["However, now, summer is too hot and sticky.","그런데, 지금은, 여름이 너무 덥고 끈적해요."],
+     ["The temperatures are over 40 degrees Celsius.","기온이 섭씨 40도가 넘어요."],
+     ["{IH} It's hard to breathe because it is so humid in Korea.","한국은 너무 습해서 숨쉬기 힘들어요."],
+     ["{IH} I think it is because of global heating. It worries me a lot.","지구 온난화 때문인 것 같아요. 정말 걱정돼요."]]}
+   ]}
+ ]},
+
+ /* ===================== CHAPTER 20 · 재활용 ===================== */
+ {ch:"CH20", chTitle:"재활용", sets:[
+
+  {ty:"묘사", title:"우리나라 재활용",
+   qen:"Tell me about how recycling works in your country. What do people recycle, and how do they do it?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, recycling in Korea is really strict.","음, 한국의 재활용은 정말 엄격해요."],
+     ["Actually, people separate many things, like paper, plastic, glass, and food waste.","사실, 사람들은 종이, 플라스틱, 유리, 음식물 쓰레기 같은 걸 분리해요."],
+     ["{IH} We also recycle food waste separately. It is turned into animal feed.","음식물 쓰레기도 따로 재활용해요. 동물 사료로 만들어져요."],
+     ["Also, we have to use special government trash bags.","또, 종량제 봉투를 써야 해요."],
+     ["You can buy them at any convenience store.","편의점 어디서나 살 수 있어요."],
+     ["Also, each apartment has a fixed recycling day.","또, 아파트마다 정해진 재활용 날이 있어요."],
+     ["{IH} Sorting your trash is required by law, so if you do it wrong, you can get fined.","분리수거는 법으로 정해져 있어서, 잘못하면 벌금을 물 수 있어요."],
+     ["So, almost everyone recycles. It is a natural habit.","그래서, 거의 모두가 재활용해요. 자연스러운 습관이에요."],
+     ["I think it helps protect the environment.","환경을 보호하는 데 도움이 되는 것 같아요."]]}
+   ]},
+
+  {ty:"묘사", title:"내가 하는 재활용 루틴",
+   qen:"Tell me about your own recycling routine at home. What do you do, step by step?",
+   blocks:[
+    {label:"답변", s:[
+     ["Well, let me tell you about my recycling routine at home.","음, 집에서 하는 제 재활용 루틴을 말해볼게요."],
+     ["First, I gather all the recyclable items, like bottles, cans, and paper.","먼저, 병, 캔, 종이 같은 재활용품을 다 모아요."],
+     ["I put them into a special basket in my kitchen.","부엌에 있는 특별한 바구니에 넣어요."],
+     ["When the basket is full, I sort everything into separate bags.","바구니가 차면, 다 따로 봉투에 분류해요."],
+     ["Then, I carry the bags to the recycling area in my apartment.","그다음, 봉투를 아파트 재활용장으로 가져가요."],
+     ["{IH} I always check the recycling day, because my apartment allows it only on Tuesdays.","항상 재활용 날을 확인해요, 우리 아파트는 화요일에만 가능하거든요."],
+     ["At the recycling area, I put each item into its own bin.","재활용장에서, 각 품목을 해당 수거함에 넣어요."],
+     ["For example, paper, plastic, glass, and cans.","예를 들어, 종이, 플라스틱, 유리, 캔이요."],
+     ["{IH} Sometimes it takes more time, because I have to fold the boxes flat and rinse the containers.","가끔 시간이 더 걸려요, 상자를 납작하게 접고 용기를 헹궈야 하거든요."],
+     ["It can be a bit of work, but it has become a natural habit.","좀 번거롭지만, 자연스러운 습관이 됐어요."]]}
+   ]},
+
+  {ty:"경험", title:"만능 - 누구 만남 (재활용 버리러 갔다가)",
+   qen:"Please tell me about a memorable experience you have had. When and where did it occur, and what happened?",
+   blocks:[
+    {label:"답변", s:[
+     ["Actually, a memorable experience happened not long ago.","사실, 기억에 남는 경험이 얼마 전에 있었어요."],
+     ["So, last weekend, I went out to take out my recycling.","그래서, 지난 주말, 재활용 쓰레기를 버리러 나갔어요."],
+     ["You know, I went down to the recycling area in my apartment.","있잖아요, 아파트 재활용장에 내려갔어요."],
+     ["When I walked outside, I saw someone. Guess who?","밖에 나가니, 누군가를 봤어요. 누구였게요?"],
+     ["My ex was walking [[toward me]].","전 애인이 저를 향해 걸어오고 있었어요."],
+     ["{IH} I stopped walking. I did not know what to do.","저는 걸음을 멈췄어요. 어떻게 해야 할지 몰랐어요."],
+     ["Honestly, [[I wasn't sure if I should]] say hello or just keep walking.","솔직히, 인사를 해야 할지 그냥 계속 걸어야 할지 고민됐어요."],
+     ["{IH} But I took a breath and decided to say hello.","하지만 숨을 한번 고르고 인사하기로 했어요."],
+     ["So, [[in the end]], we stopped and had a talk.","그래서, 결국, 우리는 멈춰서 이야기를 나눴어요."],
+     ["It was [[weird]] and [[awkward]]. But it was nice to have a talk.","이상하고 어색했어요. 하지만 이야기 나눠서 좋았어요."]]}
+   ]}
+ ]}
+
+];
+
+/* ---------------- STATE ---------------- */
+let curCh = 0, curSet = 0, rate = 0.7, gapMul = 1.2;
+let voice = null, voices = [];
+let playing = false, qIdx = 0, stopFlag = false, audioEl = null;
+
+const chtabsEl = document.getElementById('chtabs');
+const settabsEl = document.getElementById('settabs');
+const mainEl = document.getElementById('main');
+
+function plain(t){
+  return t.replace(/\{IH\}\s*/g,'')
+          .replace(/\[\[(.+?)\]\]/g,'$1')
+          .replace(/_+/g,' ')
+          .replace(/\s{2,}/g,' ')
+          .trim();
+}
+function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function html(t){
+  let h = esc(t);
+  h = h.replace(/\{IH\}\s*/g,'<span class="ih">IM3</span>');
+  h = h.replace(/\[\[(.+?)\]\]/g,'<mark>$1</mark>');
+  return h;
+}
+
+function buildChapterTabs(){
+  chtabsEl.innerHTML='';
+  CHAPTERS.forEach((c,i)=>{
+    const b=document.createElement('button');
+    b.className='chtab'+(i===curCh?' active':'');
+    b.innerHTML='<small>'+c.ch+'</small>'+c.chTitle.split('(')[0].trim();
+    b.onclick=()=>{ stopAll(); curCh=i; curSet=0; render(); window.scrollTo(0,0); };
+    chtabsEl.appendChild(b);
+  });
+}
+function buildSetTabs(){
+  settabsEl.innerHTML='';
+  CHAPTERS[curCh].sets.forEach((st,i)=>{
+    const b=document.createElement('button');
+    b.className='settab'+(i===curSet?' active':'');
+    b.innerHTML='<span class="ty">'+st.ty+'</span>'+st.title.split('(')[0].trim();
+    b.onclick=()=>{ stopAll(); curSet=i; render(); window.scrollTo(0,0);
+      document.querySelector('main').scrollIntoView({block:'start'}); };
+    settabsEl.appendChild(b);
+  });
+}
+
+function render(){
+  buildChapterTabs();
+  buildSetTabs();
+  const c=CHAPTERS[curCh];
+  const d=c.sets[curSet];
+  document.getElementById('hTitle').textContent=c.ch+' · '+c.chTitle.split('(')[0].trim();
+  let h='';
+  h+='<div class="qhead"><span class="badge">'+d.ty+' · '+esc(d.title)+'</span>'+
+     '<h2>'+esc(d.title)+'</h2><div class="qen">'+esc(d.qen)+'</div></div>';
+  let n=0;
+  const items=[];
+  d.blocks.forEach(bk=>{
+    h+='<div class="blocklabel'+(d.rp?' rp':'')+'">'+esc(bk.label)+'</div>';
+    bk.s.forEach(pair=>{
+      const en=pair[0], ko=pair[1]||'', audio=pair[2]||null;
+      const idx=n++;
+      items.push({en:plain(en), audio:audio});
+      h+='<div class="sent" data-i="'+idx+'">'+
+         '<div class="num">'+(idx+1)+'</div>'+
+         '<button class="play" aria-label="play">▶</button>'+
+         '<div class="txt">'+
+           '<div class="en">'+html(en)+'</div>'+
+           '<div class="kohint">💬 뜻 보기 ▾</div>'+
+           '<div class="ko">'+esc(ko)+'</div>'+
+         '</div></div>';
+    });
+  });
+  h+='<div class="tip">💡 ▶ 를 눌러 한 문장씩 듣고 따라 말하세요.<br>'+
+     '문장을 누르면 <b>한국어 뜻</b>이 보여요. 아래 <b>전체 따라읽기</b>는 자동 재생이에요.</div>';
+  mainEl.innerHTML=h;
+
+  mainEl.querySelectorAll('.sent').forEach(el=>{
+    const i=+el.dataset.i;
+    el.querySelector('.play').onclick=(ev)=>{ ev.stopPropagation(); stopAll(); speakOne(items[i], el); };
+    el.querySelector('.txt').onclick=()=>{
+      el.classList.toggle('show-ko');
+      const hint=el.querySelector('.kohint');
+      hint.textContent = el.classList.contains('show-ko') ? '💬 뜻 닫기 ▴' : '💬 뜻 보기 ▾';
+    };
+  });
+  mainEl._items=items;
+}
+
+/* ---------------- SPEECH ---------------- */
+function pickVoice(){
+  const list = speechSynthesis.getVoices();
+  voices = list.filter(v=>/^en(-|_|$)/i.test(v.lang));
+  const female=/(samantha|ava|allison|susan|karen|moira|tessa|fiona|serena|veena|zira|aria|jenny|jane|nanc|michelle|sonia|emma|amy|joanna|kendra|salli|nicole|female|woman|girl|google us english)/i;
+  const male=/(daniel|alex\b|fred|tom\b|david|mark|guy|george|oliver|arthur|rishi|ryan|male)/i;
+  const natural=/(natural|neural|online|enhanced|premium|siri)/i;
+  const score=v=>{ const n=v.name.toLowerCase();
+    const us=/en[-_]?us/i.test(v.lang);
+    const fem=female.test(n) && !male.test(n);
+    if(us && fem && natural.test(n)) return 0;
+    if(us && fem) return 1;
+    if(fem && natural.test(n)) return 2;
+    if(fem) return 3;
+    if(us) return 5;
+    return 8; };
+  voices.sort((a,b)=>score(a)-score(b));
+  voice = voices[0] || list[0] || null;
+}
+function ttsUtter(text){
+  const u=new SpeechSynthesisUtterance(text);
+  if(voice) u.voice=voice;
+  u.rate=rate; u.pitch=1.05; u.lang=(voice&&voice.lang)||'en-US';
+  return u;
+}
+function playItem(item, onend){
+  if(item.audio){
+    try{
+      speechSynthesis.cancel();
+      audioEl=new Audio(item.audio);
+      audioEl.playbackRate=Math.max(0.5,Math.min(1,rate+0.1));
+      audioEl.onended=()=>{ audioEl=null; onend&&onend(); };
+      audioEl.onerror=()=>{ audioEl=null; const u=ttsUtter(item.en); u.onend=onend; speechSynthesis.speak(u); };
+      audioEl.play().catch(()=>{ audioEl=null; const u=ttsUtter(item.en); u.onend=onend; speechSynthesis.speak(u); });
+      return;
+    }catch(e){}
+  }
+  const u=ttsUtter(item.en); u.onend=onend; speechSynthesis.speak(u);
+}
+function highlight(el){
+  mainEl.querySelectorAll('.sent.active').forEach(e=>{e.classList.remove('active');
+    e.querySelector('.play').textContent='▶';});
+  if(el){ el.classList.add('active'); el.querySelector('.play').textContent='❚❚';
+    const r=el.getBoundingClientRect();
+    if(r.top<150||r.bottom>window.innerHeight-160)
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+function speakOne(item, el){
+  stopAudio();
+  highlight(el);
+  playItem(item, ()=>{ if(!playing) highlight(null); });
+}
+function wordGap(text){
+  const w=text.split(/\s+/).length;
+  return Math.max(1400, w*380) * gapMul;
+}
+function playAll(){
+  stopAll();
+  playing=true; stopFlag=false; qIdx=0;
+  document.getElementById('playAll').textContent='⏸ 재생 중…';
+  nextInQueue();
+}
+function nextInQueue(){
+  if(stopFlag) return;
+  const items=mainEl._items;
+  const cards=mainEl.querySelectorAll('.sent');
+  if(qIdx>=items.length){ stopAll(); return; }
+  const el=cards[qIdx];
+  highlight(el);
+  playItem(items[qIdx], ()=>{
+    if(stopFlag) return;
+    const nextText = (items[qIdx]&&items[qIdx].en)||'';
+    setTimeout(()=>{ qIdx++; nextInQueue(); }, wordGap(nextText));
+  });
+}
+function stopAudio(){
+  speechSynthesis.cancel();
+  if(audioEl){ try{audioEl.pause();}catch(e){} audioEl=null; }
+}
+function stopAll(){
+  stopFlag=true; playing=false;
+  stopAudio();
+  highlight(null);
+  const pa=document.getElementById('playAll');
+  if(pa) pa.textContent='▶ 이 항목 전체 따라읽기';
+}
+
+/* ---------------- CONTROLS ---------------- */
+document.getElementById('playAll').onclick=()=>{ if(playing) stopAll(); else playAll(); };
+document.getElementById('stopBtn').onclick=stopAll;
+document.getElementById('rateSeg').onclick=e=>{
+  if(e.target.dataset.r){ rate=+e.target.dataset.r;
+    [...e.currentTarget.children].forEach(b=>b.classList.remove('on'));
+    e.target.classList.add('on'); }
+};
+document.getElementById('gapSeg').onclick=e=>{
+  if(e.target.dataset.g){ gapMul=+e.target.dataset.g;
+    [...e.currentTarget.children].forEach(b=>b.classList.remove('on'));
+    e.target.classList.add('on'); }
+};
+window.speechSynthesis.onvoiceschanged=pickVoice;
+pickVoice();
+render();
+window.addEventListener('pagehide',stopAll);
+</script>
+</body>
+</html>
